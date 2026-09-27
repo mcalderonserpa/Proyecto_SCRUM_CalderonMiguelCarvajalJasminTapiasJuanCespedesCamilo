@@ -12,7 +12,7 @@ from src.functions_admin.admin2clients import add_client
 from src.functions_admin.admin2clients import show_clients
 from src.functions_admin.admin2clients import enroll_client
 from src.functions_admin.admin2services import add_service
-from src.functions_instructors.instructores import add_instructor
+from src.functions_admin.admin2instructors import add_instructor
 
 def main():
     start = True
