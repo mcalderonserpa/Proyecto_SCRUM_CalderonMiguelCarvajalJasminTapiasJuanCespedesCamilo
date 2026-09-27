@@ -6,11 +6,13 @@ from src.functions_menu.menus import submenu_enrollments
 from src.functions_menu.menus import submenu_services_clients
 from src.functions_menu.menus import submenu_services_admin
 from src.functions_menu.menus import submenu_reports
+from src.functions_menu.menus import submenu_instructors_admin
 
 from src.functions_admin.admin2clients import add_client  
 from src.functions_admin.admin2clients import show_clients
 from src.functions_admin.admin2clients import enroll_client
 from src.functions_admin.admin2services import add_service
+from src.functions_instructors.instructores import add_instructor
 
 def main():
     start = True
@@ -71,9 +73,42 @@ def main():
                                     print("Opcion no valida. Intente nuevamente.")
 
                         case 3:
-                            submenu_reports()
+                            submenu_instructors_admin()
+                            opcion3 = int(input("\nSeleccione una opcion: "))
+
+                            match opcion3:
+                                case 1:
+                                    add_instructor()
+                                case 2:
+                                    print("En Construccion")
+                                case 3:
+                                    print("En Construccion")
+                                case 4:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no valida. Intente nuevamente.")
 
                         case 4:
+                            submenu_reports()
+                            opcion3 = int(input("\nSeleccione una opcion: "))
+
+                            match opcion3:
+                                case 1:
+                                    print("En Construccion")
+                                case 2:
+                                    print("En Construccion")
+                                case 3:
+                                    print("En Construccion")
+                                case 4:
+                                    print("En Construccion")
+                                case 5:
+                                    print("En Construccion")
+                                case 6:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no valida. Intente nuevamente.")
+
+                        case 5:
                             start2 = False
                             print("Gracias por utilizar Gimnasio ForceTech.")
 
