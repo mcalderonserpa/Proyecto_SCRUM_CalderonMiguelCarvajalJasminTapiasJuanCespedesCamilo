@@ -18,108 +18,108 @@ def main():
     start = True
     while start:
         menu_main()
-        opcion = int(input("\nSeleccione una opcion: "))
+        opcion = input("\nSeleccione una opcion: ")
 
         match opcion:
-            case 1:
+            case "1":
                 menu_clients()
                 print("En Construccion")
 
-            case 2:
+            case "2":
                 submenu_services_clients()
                 print("En Construccion")
 
-            case 3:
+            case "3":
                 menu_instructors()
                 print("En Construccion")
 
-            case 4:
+            case "4":
                 start2 = True
                 while start2:
                     menu_admin()
-                    opcion2 = int(input("\nSeleccione una opcion: "))
+                    opcion2 = input("\nSeleccione una opcion: ")
 
                     match opcion2:
-                        case 1:
+                        case "1":
                             submenu_enrollments()
-                            opcion3 = int(input("\nSeleccione una opcion: "))
+                            opcion3 = input("\nSeleccione una opcion: ")
 
                             match opcion3:
-                                case 1:
+                                case "1":
                                     add_client()
-                                case 2:
+                                case "2":
                                     show_clients()
-                                case 3:
+                                case "3":
                                     enroll_client()
-                                case 4:
+                                case "4":
                                     print("Volviendo al menu principal...")
                                 case _:
                                     print("Opcion no valida. Intente nuevamente.")
 
-                        case 2:
+                        case "2":
                             submenu_services_admin()
-                            opcion3 = int(input("\nSeleccione una opcion: "))
+                            opcion3 = input("\nSeleccione una opcion: ")
 
                             match opcion3:
-                                case 1:
+                                case "1":
                                     add_service()
-                                case 2:
+                                case "2":
                                     print("En Construccion")
-                                case 3:
+                                case "3":
                                     print("En Construccion")
-                                case 4:
+                                case "4":
                                     print("Volviendo al menu principal...")
                                 case _:
                                     print("Opcion no valida. Intente nuevamente.")
 
-                        case 3:
+                        case "3":
                             submenu_instructors_admin()
-                            opcion3 = int(input("\nSeleccione una opcion: "))
+                            opcion3 = input("\nSeleccione una opcion: ")
 
                             match opcion3:
-                                case 1:
+                                case "1":
                                     add_instructor()
-                                case 2:
+                                case "2":
                                     print("En Construccion")
-                                case 3:
+                                case "3":
                                     print("En Construccion")
-                                case 4:
+                                case "4":
                                     print("Volviendo al menu principal...")
                                 case _:
                                     print("Opcion no valida. Intente nuevamente.")
 
-                        case 4:
+                        case "4":
                             submenu_reports()
-                            opcion3 = int(input("\nSeleccione una opcion: "))
+                            opcion3 = input("\nSeleccione una opcion: ")
 
                             match opcion3:
-                                case 1:
+                                case "1":
                                     print("En Construccion")
-                                case 2:
+                                case "2":
                                     print("En Construccion")
-                                case 3:
+                                case "3":
                                     print("En Construccion")
-                                case 4:
+                                case "4":
                                     print("En Construccion")
-                                case 5:
+                                case "5":
                                     print("En Construccion")
-                                case 6:
+                                case "6":
                                     print("Volviendo al menu principal...")
                                 case _:
                                     print("Opcion no valida. Intente nuevamente.")
 
-                        case 5:
+                        case "5":
                             start2 = False
                             print("Gracias por utilizar Gimnasio ForceTech.")
 
                         case _:
                             print("Opcion no valida. Intente nuevamente.")
 
-            case 5:
+            case "5":
                 submenu_reports()
                 print("En Construccion")
 
-            case 6:
+            case "6":
                 start = False
                 print("Gracias por utilizar Gimnasio ForceTech.")
 
