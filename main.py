@@ -1,43 +1,95 @@
-from menus import (
-    menu_principal,
-    menu_clientes,
-    submenu_servicios,
-    menu_instructores,
-    menu_administrador,
-    submenu_matriculas,
-    submenu_gestion_servicios,
-    submenu_reportes
-)
+from src.functions_menu.menus import menu_main
+from src.functions_menu.menus import menu_clients
+from src.functions_menu.menus import menu_instructors
+from src.functions_menu.menus import menu_admin
+from src.functions_menu.menus import submenu_enrollments
+from src.functions_menu.menus import submenu_services_clients
+from src.functions_menu.menus import submenu_services_admin
+from src.functions_menu.menus import submenu_reports
 
+from src.functions_admin.admin2clients import add_client  
+from src.functions_admin.admin2clients import show_clients
+from src.functions_admin.admin2clients import enroll_client
+from src.functions_admin.admin2services import add_service
 
 def main():
-    while True:
-        menu_principal()
+    start = True
+    while start:
+        menu_main()
+        opcion = int(input("\nSeleccione una opcion: "))
 
-        opcion = input("Seleccione una opcion: ")
+        match opcion:
+            case 1:
+                menu_clients()
+                print("En Construccion")
 
-        if opcion == "1":
-            menu_clientes()
+            case 2:
+                submenu_services_clients()
+                print("En Construccion")
 
-        elif opcion == "2":
-            submenu_servicios()
+            case 3:
+                menu_instructors()
+                print("En Construccion")
 
-        elif opcion == "3":
-            menu_instructores()
+            case 4:
+                start2 = True
+                while start2:
+                    menu_admin()
+                    opcion2 = int(input("\nSeleccione una opcion: "))
 
-        elif opcion == "4":
-            menu_administrador()
+                    match opcion2:
+                        case 1:
+                            submenu_enrollments()
+                            opcion3 = int(input("\nSeleccione una opcion: "))
 
-        elif opcion == "5":
-            submenu_reportes()
+                            match opcion3:
+                                case 1:
+                                    add_client()
+                                case 2:
+                                    show_clients()
+                                case 3:
+                                    enroll_client()
+                                case 4:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no valida. Intente nuevamente.")
 
-        elif opcion == "6":
-            print("Gracias por utilizar Gimnasio ForceTech.")
-            break
+                        case 2:
+                            submenu_services_admin()
+                            opcion3 = int(input("\nSeleccione una opcion: "))
 
-        else:
-            print("Opcion no valida. Intente nuevamente.")
+                            match opcion3:
+                                case 1:
+                                    add_service()
+                                case 2:
+                                    print("En Construccion")
+                                case 3:
+                                    print("En Construccion")
+                                case 4:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no valida. Intente nuevamente.")
 
+                        case 3:
+                            submenu_reports()
+
+                        case 4:
+                            start2 = False
+                            print("Gracias por utilizar Gimnasio ForceTech.")
+
+                        case _:
+                            print("Opcion no valida. Intente nuevamente.")
+
+            case 5:
+                submenu_reports()
+                print("En Construccion")
+
+            case 6:
+                start = False
+                print("Gracias por utilizar Gimnasio ForceTech.")
+
+            case _:
+                print("Opcion no valida. Intente nuevamente.")
 
 if __name__ == "__main__":
     main()

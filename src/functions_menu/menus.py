@@ -1,4 +1,4 @@
-def menu_principal():
+def menu_main():
     print("\n" + "=" * 40)
     print("       GIMNASIO FORCE TECH")
     print("       SISTEMA DE GESTION")
@@ -11,8 +11,7 @@ def menu_principal():
     print("6. Salir")
     print("=" * 40)
 
-
-def menu_clientes():
+def menu_clients():
     print("\n--- MENU DE CLIENTES ---")
     print("1. Acceso Perfil")
     print("2. Registro de actividades")
@@ -23,7 +22,7 @@ def menu_clientes():
     print("7. Volver al menu principal")
 
 
-def submenu_servicios():
+def submenu_services_clients():
     print("\n--- MENU DE SERVICIOS ---")
     print("1. Matricular servicio")
     print("2. Retirar servicio")
@@ -31,14 +30,14 @@ def submenu_servicios():
     print("4. Volver al menu principal")
 
 
-def menu_instructores():
-    print("\n--- GESTION DE INSTRUCTORES ---")
+def menu_instructors():
+    print("\n--- MENU DE INSTRUCTORES ---")
     print("1. Registrar asistencia y progreso")
     print("2. Listar instructores")
     print("3. Volver al menu principal")
 
 
-def menu_administrador():
+def menu_admin():
     print("\n--- ADMINISTRADOR ---")
     print("1. Gestionar matriculas")
     print("2. Gestionar servicios")
@@ -46,16 +45,16 @@ def menu_administrador():
     print("4. Volver al menu principal")
 
 
-def submenu_matriculas():
+def submenu_enrollments():
     print("\n--- GESTION DE MATRICULAS ---")
-    print("1. Matricular cliente")
-    print("2. Listar matriculas")
-    print("3. Registrar asistencia")
-    print("4. Registrar progreso")
+    print("1. Registrar cliente")
+    print("2. Listar clientes")
+    print("3. Matricular cliente a un servicio")
+    print("4. Retirar servicio")
     print("5. Volver al menu principal")
 
 
-def submenu_gestion_servicios():
+def submenu_services_admin():
     print("\n--- GESTION DE SERVICIOS ---")
     print("1. Registrar servicios")
     print("2. Listar servicios")
@@ -63,7 +62,7 @@ def submenu_gestion_servicios():
     print("4. Volver al menu principal")
 
 
-def submenu_reportes():
+def submenu_reports():
     print("\n--- REPORTES ---")
     print("1. Clientes inscritos")
     print("2. Servicios y capacidad")
