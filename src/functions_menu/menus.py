@@ -41,8 +41,9 @@ def menu_admin():
     print("\n--- ADMINISTRADOR ---")
     print("1. Gestionar matriculas")
     print("2. Gestionar servicios")
-    print("3. Reportes")
-    print("4. Volver al menu principal")
+    print("3. Gestionar instructores")
+    print("4. Reportes")
+    print("5. Volver al menu principal")
 
 
 def submenu_enrollments():
@@ -53,7 +54,6 @@ def submenu_enrollments():
     print("4. Retirar servicio")
     print("5. Volver al menu principal")
 
-
 def submenu_services_admin():
     print("\n--- GESTION DE SERVICIOS ---")
     print("1. Registrar servicios")
@@ -61,6 +61,12 @@ def submenu_services_admin():
     print("3. Eliminar servicios")
     print("4. Volver al menu principal")
 
+def submenu_instructors_admin():
+    print("\n--- GESTION DE INSTRUCTORES ---")
+    print("1. Registrar instructor")
+    print("2. Listar instructores")
+    print("3. Eliminar instructor")
+    print("4. Volver al menu principal")
 
 def submenu_reports():
     print("\n--- REPORTES ---")
