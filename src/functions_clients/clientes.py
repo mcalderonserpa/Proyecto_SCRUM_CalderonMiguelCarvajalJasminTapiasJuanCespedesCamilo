@@ -135,6 +135,7 @@ def buscar_cliente():
             return
 
     print("Cliente no encontrado.")
+
 def modificar_cliente():
     clientes = cargar_clientes()
 
@@ -167,6 +168,7 @@ def modificar_cliente():
             return
 
     print("Cliente no encontrado.")
+
 def cambiar_estado():
     clientes = cargar_clientes()
 
@@ -200,3 +202,40 @@ def cambiar_estado():
             return
 
     print("Cliente no encontrado.")
+
+def cambiar_riesgo():
+    clientes = cargar_clientes()
+
+    identificacion = input("\nIngrese la identificación del cliente: ").strip()
+
+    for cliente in clientes:
+        if cliente["id"] == identificacion:
+            print("\nSeleccione el nivel de riesgo:")
+            print("1. Alto")
+            print("2. Medio")
+            print("3. Bajo")
+
+            opcion = input("Seleccione una opción: ")
+
+            riesgos = {
+                "1": "Alto",
+                "2": "Medio",
+                "3": "Bajo"
+            }
+
+            if opcion not in riesgos:
+                print("Opción no válida.")
+                return
+
+            cliente["nivel_riesgo"] = riesgos[opcion]
+            guardar_clientes(clientes)
+
+            print("Nivel de riesgo actualizado correctamente.")
+            return
+
+    print("Cliente no encontrado.")
+
+
+
+    
+
