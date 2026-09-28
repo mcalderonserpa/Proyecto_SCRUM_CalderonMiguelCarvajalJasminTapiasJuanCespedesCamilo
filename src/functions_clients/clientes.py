@@ -96,3 +96,23 @@ def registrar_cliente():
 
     print("\nCliente registrado correctamente.")
 
+def listar_clientes():
+    clientes = cargar_clientes()
+
+    if not clientes:
+        print("\nNo hay clientes registrados.")
+        return
+
+    print("\n========== LISTA DE CLIENTES ==========")
+
+    for cliente in clientes:
+        print("\n----------------------------------------")
+        print(f"ID: {cliente['id']}")
+        print(f"Nombres: {cliente['nombres']}")
+        print(f"Apellidos: {cliente['apellidos']}")
+        print(f"Dirección: {cliente['direccion']}")
+        print(f"Teléfono móvil: {cliente['telefono_movil']}")
+        print(f"Teléfono fijo: {cliente['telefono_fijo']}")
+        print(f"Estado: {cliente['estado']}")
+        print(f"Nivel de riesgo: {cliente['nivel_riesgo']}")
+
