@@ -167,3 +167,36 @@ def modificar_cliente():
             return
 
     print("Cliente no encontrado.")
+def cambiar_estado():
+    clientes = cargar_clientes()
+
+    identificacion = input("\nIngrese la identificación del cliente: ").strip()
+
+    for cliente in clientes:
+        if cliente["id"] == identificacion:
+            print("\nSeleccione el nuevo estado:")
+            print("1. En proceso de inscripción")
+            print("2. Inscrito")
+            print("3. Activo")
+            print("4. Inactivo")
+
+            opcion = input("Seleccione una opción: ")
+
+            estados = {
+                "1": "En proceso de inscripción",
+                "2": "Inscrito",
+                "3": "Activo",
+                "4": "Inactivo"
+            }
+
+            if opcion not in estados:
+                print("Opción no válida.")
+                return
+
+            cliente["estado"] = estados[opcion]
+            guardar_clientes(clientes)
+
+            print("Estado actualizado correctamente.")
+            return
+
+    print("Cliente no encontrado.")
