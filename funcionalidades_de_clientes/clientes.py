@@ -39,4 +39,4 @@ def registrar_cliente():
     apellidos = input("Ingrese los apellidos: ").strip()
     direccion = input("Ingrese la dirección: ").strip()
     telefono_movil = input("Ingrese el teléfono móvil: ").strip()
-    telefono_fijo = input("Ingrese el teléfono fijo: ").strip(
+    telefono_fijo = input("Ingrese el teléfono fijo: ").strip()
