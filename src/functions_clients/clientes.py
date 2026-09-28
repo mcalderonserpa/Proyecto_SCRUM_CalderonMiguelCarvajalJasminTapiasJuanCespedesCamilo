@@ -91,4 +91,8 @@ def registrar_cliente():
         "estado": estado,
         "nivel_riesgo": nivel_riesgo
         }
+    clientes.append(nuevo_cliente)
+    guardar_clientes(clientes)
+
+    print("\nCliente registrado correctamente.")
 
