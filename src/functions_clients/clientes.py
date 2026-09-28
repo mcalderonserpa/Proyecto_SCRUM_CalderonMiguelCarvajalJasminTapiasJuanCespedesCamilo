@@ -41,3 +41,54 @@ def registrar_cliente():
     telefono_movil = input("Ingrese el teléfono móvil: ").strip()
     telefono_fijo = input("Ingrese el teléfono fijo: ").strip()
 
+    print("\nSeleccione el estado:")
+    print("1. En proceso de inscripción")
+    print("2. Inscrito")
+    print("3. Activo")
+    print("4. Inactivo")
+
+    opcion_estado = input("Seleccione una opción: ")
+    
+    estados = {
+         "1": "En proceso de inscripción",
+         "2": "Inscrito",
+         "3": "Activo",
+         "4": "Inactivo"
+        }
+    
+    if opcion_estado not in estados:
+        print("Estado no válido.")
+        return
+    
+    estado = estados[opcion_estado]
+    
+    print("\nSeleccione el nivel de riesgo:")
+    print("1. Alto")
+    print("2. Medio")
+    print("3. Bajo")
+    
+    opcion_riesgo = input("Seleccione una opción: ")
+    
+    riesgos = {
+        "1": "Alto",
+        "2": "Medio",
+        "3": "Bajo"
+        }
+    
+    if opcion_riesgo not in riesgos:
+        print("Nivel de riesgo no válido.")
+        return
+    
+    nivel_riesgo = riesgos[opcion_riesgo]
+    
+    nuevo_cliente = {
+        "id": identificacion,
+        "nombres": nombres,
+        "apellidos": apellidos,
+        "direccion": direccion,
+        "telefono_movil": telefono_movil,
+        "telefono_fijo": telefono_fijo,
+        "estado": estado,
+        "nivel_riesgo": nivel_riesgo
+        }
+
