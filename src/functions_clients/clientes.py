@@ -135,3 +135,35 @@ def buscar_cliente():
             return
 
     print("Cliente no encontrado.")
+def modificar_cliente():
+    clientes = cargar_clientes()
+
+    identificacion = input("\nIngrese la identificación del cliente: ").strip()
+
+    for cliente in clientes:
+        if cliente["id"] == identificacion:
+            print("\nCliente encontrado.")
+            print("Deje vacío el campo si no desea modificarlo.")
+
+            nombres = input(f"Nombres [{cliente['nombres']}]: ").strip()
+            apellidos = input(f"Apellidos [{cliente['apellidos']}]: ").strip()
+            direccion = input(f"Dirección [{cliente['direccion']}]: ").strip()
+            telefono_movil = input(f"Teléfono móvil [{cliente['telefono_movil']}]: ").strip()
+            telefono_fijo = input(f"Teléfono fijo [{cliente['telefono_fijo']}]: ").strip()
+
+            if nombres:
+                cliente["nombres"] = nombres
+            if apellidos:
+                cliente["apellidos"] = apellidos
+            if direccion:
+                cliente["direccion"] = direccion
+            if telefono_movil:
+                cliente["telefono_movil"] = telefono_movil
+            if telefono_fijo:
+                cliente["telefono_fijo"] = telefono_fijo
+
+            guardar_clientes(clientes)
+            print("\nCliente modificado correctamente.")
+            return
+
+    print("Cliente no encontrado.")
