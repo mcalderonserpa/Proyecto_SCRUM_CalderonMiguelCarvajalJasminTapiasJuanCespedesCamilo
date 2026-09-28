@@ -116,3 +116,22 @@ def listar_clientes():
         print(f"Estado: {cliente['estado']}")
         print(f"Nivel de riesgo: {cliente['nivel_riesgo']}")
 
+def buscar_cliente():
+    clientes = cargar_clientes()
+
+    identificacion = input("\nIngrese la identificación del cliente: ").strip()
+
+    for cliente in clientes:
+        if cliente["id"] == identificacion:
+            print("\n========== CLIENTE ENCONTRADO ==========")
+            print(f"ID: {cliente['id']}")
+            print(f"Nombres: {cliente['nombres']}")
+            print(f"Apellidos: {cliente['apellidos']}")
+            print(f"Dirección: {cliente['direccion']}")
+            print(f"Teléfono móvil: {cliente['telefono_movil']}")
+            print(f"Teléfono fijo: {cliente['telefono_fijo']}")
+            print(f"Estado: {cliente['estado']}")
+            print(f"Nivel de riesgo: {cliente['nivel_riesgo']}")
+            return
+
+    print("Cliente no encontrado.")
