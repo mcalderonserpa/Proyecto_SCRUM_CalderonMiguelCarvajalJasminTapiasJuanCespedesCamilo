@@ -1,7 +1,7 @@
 import json
 import os
 
-ARCHIVO = "funcionalidades_clientes/clientes.json"
+ARCHIVO = "src/functions_clients/clientes.json"
 
 def cargar_clientes():
     try:
@@ -28,6 +28,10 @@ def registrar_cliente():
 
     if not identificacion:
         print("La identificación no puede estar vacía.")
+        return
+    
+    if not identificacion.isdigit():
+        print("La identificación debe contener solo números.")
         return
 
     for cliente in clientes:
@@ -91,7 +95,7 @@ def validar_id(identificacion, lista_clientes):
 
     # 2. Validar que no esté repetida
     for cliente in lista_clientes:
-        if cliente["identificacion"] == identificacion:
+        if cliente["id"] == identificacion:
             print(" Error: Ya existe un cliente registrado con ese número de identificación.")
             return False
 
