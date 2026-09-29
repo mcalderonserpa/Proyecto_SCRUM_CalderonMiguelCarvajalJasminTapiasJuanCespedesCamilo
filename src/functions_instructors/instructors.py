@@ -149,4 +149,54 @@ def resumen_asistencia(id_cliente, nombre_servicio=None):
     total = asistio + falto
     porcentaje = round(asistio * 100 / total, 1) if total > 0 else None
     return {"asistencias": asistio, "inasistencias": falto, "sesiones": total, "porcentaje": porcentaje}
-        
+
+
+# FT03.01.03 Calculo del score de rendimiento
+
+# Funcion auxiliar evaluaciones_cliente
+def evaluaciones_cliente(id_cliente, nombre_servicio=None):
+    lista = []
+    for evaluacion in get_evaluations():
+        if evaluacion['id_cliente'] != id_cliente:
+            continue
+        if nombre_servicio is not None and evaluacion['servicio'] != nombre_servicio:
+            continue
+        lista.append(evaluacion)
+    lista.sort(key=lambda e: datetime.strptime(e['fecha'], FORMATO_FECHA))
+    return lista
+
+# Funcion auxiliar clasificar_rendimiento
+def clasificar_rendimiento(score):
+    if score is None:
+        return "sin evaluar"
+    if score < UMBRAL_BAJO:
+        return "bajo"
+    if score < UMBRAL_ALTO:
+        return "medio"
+    return "alto"
+
+# score = (suma de calificaciones / numero de evaluaciones) - 0.1 * inasistencias
+def calcular_score(id_cliente, nombre_servicio=None):
+    evaluaciones = evaluaciones_cliente(id_cliente, nombre_servicio)
+    asistencia = resumen_asistencia(id_cliente, nombre_servicio)
+
+    if not evaluaciones:
+        promedio = None
+        score = None
+    else:
+        suma = 0
+        for evaluacion in evaluaciones:
+            suma += evaluacion['calificacion']
+        promedio = suma / len(evaluaciones)
+        score = promedio - PENALIZACION_INASISTENCIA * asistencia['inasistencias']
+        score = round(max(0, min(CALIFICACION_MAX, score)), 2)
+        promedio = round(promedio, 2)
+
+    return {
+        "promedio": promedio,
+        "evaluaciones": len(evaluaciones),
+        "inasistencias": asistencia['inasistencias'],
+        "porcentaje_asistencia": asistencia['porcentaje'],
+        "score": score,
+        "nivel": clasificar_rendimiento(score)
+    }
