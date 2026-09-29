@@ -247,6 +247,28 @@ def cambiar_riesgo():
 
     print("Cliente no encontrado.")
 
+def eliminar_cliente():
+    clientes = cargar_clientes()
+
+    identificacion = input("\nIngrese la identificación del cliente: ").strip()
+
+    for cliente in clientes:
+        if cliente["id"] == identificacion:
+            confirmar = input(f"¿Está seguro de eliminar al cliente {cliente['nombres']} {cliente['apellidos']}? (s/n): ").lower()
+            
+            if confirmar == "s":
+                clientes.remove(cliente)
+                guardar_clientes(clientes)
+                print("Cliente eliminado correctamente.")
+            else:
+                print("Operación cancelada.")
+            return
+
+    print("Cliente no encontrado.")
+
+
+        
+
 
 
     
