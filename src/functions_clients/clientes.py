@@ -1,6 +1,7 @@
 import json
 import os
-
+from src.functions_storage.storage import get_clients
+from src.functions_storage.storage import save_clients
 ARCHIVO = "src/functions_clients/clientes.json"
 
 def cargar_clientes():
@@ -20,7 +21,7 @@ def guardar_clientes(clientes):
         json.dump(clientes, archivo, indent=4, ensure_ascii=False)
 
 def registrar_cliente():
-    clientes = cargar_clientes()
+    clientes = get_clients()
 
     print("\n========== REGISTRAR CLIENTE ==========")
 
@@ -77,7 +78,7 @@ def registrar_cliente():
         "nivel_riesgo": nivel_riesgo
         }
     clientes.append(nuevo_cliente)
-    guardar_clientes(clientes)
+    save_clients(clientes)
 
     print("\nCliente registrado correctamente.")
 
