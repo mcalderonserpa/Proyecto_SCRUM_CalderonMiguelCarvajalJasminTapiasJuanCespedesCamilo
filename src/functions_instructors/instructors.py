@@ -14,6 +14,7 @@ CALIFICACION_MIN = 0.1
 CALIFICACION_MAX = 10
 UMBRAL_BAJO = 5.0   
 UMBRAL_ALTO = 7.0
+FORMATO_FECHA = "%d-%m-%Y"
 
 # ---------------------------------------------------------------------
 # FT03.03 Inicio de sesion del instructor
@@ -39,3 +40,113 @@ def login_instructor():
             return instructor
     print(f"No se encuentra el instructor con el ID: {id_instructor}")
     return None
+
+# FT03.01 Registro periodico del instructor /  FT03.01.02 Asistencia
+
+# Funcion auxiliar pedir_fecha
+def pedir_fecha(mensaje="Ingrese la fecha (DD-MM-AAAA) o Enter para hoy: "):
+    while True:
+        texto = input(mensaje).strip()
+        if texto == "":
+            return date.today().strftime(FORMATO_FECHA)
+        try:
+            return datetime.strptime(texto, FORMATO_FECHA).strftime(FORMATO_FECHA)
+        except ValueError:
+            print("Formato de fecha invalido. Use DD-MM-AAAA.")            
+            
+def servicios_de_instructor(instructor):
+    servicios = []
+    for servicio in get_services():
+        if servicio['instructor'] == instructor['nombre'] or servicio['servicio'] in instructor.get('servicios', []):
+            servicios.append(servicio)
+            return servicios
+
+def seleccionar_servicio(instructor):
+    servicios = servicios_de_instructor(instructor)
+    if not servicios:
+        print("No tiene servicios asignados.")
+        return None
+    print("\nSus servicios:")
+    for i, servicio in enumerate(servicios, start=1):
+        print(f"{i}. {servicio['servicio']} ({len(servicio['matriculas'])} matriculados)")
+    try:
+        opcion = int(input("Seleccione el numero del servicio: ")) - 1
+        if opcion < 0:
+            raise IndexError
+        return servicios[opcion]
+    except (ValueError, IndexError):
+        print("Opcion no valida.")
+        return None
+
+def buscar_cliente(id_cliente):
+    for cliente in get_clients():
+        if cliente['id'] == id_cliente:
+            return cliente
+    return None
+
+def nombre_cliente(id_cliente):
+    cliente = buscar_cliente(id_cliente)
+    if cliente is None:
+        return f"Cliente {id_cliente} (no registrado)"
+    return f"{cliente['nombres']} {cliente['apellidos']}"
+    
+
+# FT03.01.02 Funcion registrar_asistencia
+
+def registrar_asistencia(instructor):
+    servicio = seleccionar_servicio(instructor)
+    if servicio is None:
+        return
+    if not servicio['matriculas']:
+        print(f"No hay clientes matriculados en {servicio['servicio']}.")
+        return
+
+    fecha = pedir_fecha()
+    asistencias = get_attendance()
+
+    for sesion in asistencias:
+        if sesion['servicio'] == servicio['servicio'] and sesion['fecha'] == fecha:
+            print(f"Ya se registro la asistencia de {servicio['servicio']} para el {fecha}.")
+            return
+
+    asistentes = []
+    ausentes = []
+    print(f"\nAsistencia de {servicio['servicio']} - {fecha}  (SI = asistio, NO = no asistio)")
+    for matricula in servicio['matriculas']:
+        while True:
+            respuesta = input(f"  [{matricula['id']}] {nombre_cliente(matricula['id'])}: ").strip().upper()
+            respuesta = respuesta.replace("Í", "I")
+            if respuesta in ("SI", "NO"):
+                break
+            print("  Responda SI o NO.")
+        if respuesta == "SI":
+            asistentes.append(matricula['id'])
+        else:
+            ausentes.append(matricula['id'])
+
+    asistencias.append({
+        "servicio": servicio['servicio'],
+        "id_instructor": instructor['id'],
+        "fecha": fecha,
+        "asistentes": asistentes,
+        "ausentes": ausentes
+    })
+    save_attendance(asistencias)
+    print(f"\nAsistencia guardada: {len(asistentes)} asistentes, {len(ausentes)} ausentes.") 
+
+
+# Funcion auxiliar resumen_asistencia    
+def resumen_asistencia(id_cliente, nombre_servicio=None):
+    asistio = 0
+    falto = 0
+    for sesion in get_attendance():
+        if nombre_servicio is not None and sesion['servicio'] != nombre_servicio:
+            continue
+        if id_cliente in sesion['asistentes']:
+            asistio += 1
+        elif id_cliente in sesion['ausentes']:
+            falto += 1
+    total = asistio + falto
+    porcentaje = round(asistio * 100 / total, 1) if total > 0 else None
+    return {"asistencias": asistio, "inasistencias": falto, "sesiones": total, "porcentaje": porcentaje}
+        
