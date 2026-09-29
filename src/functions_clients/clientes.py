@@ -266,7 +266,41 @@ def eliminar_cliente():
 
     print("Cliente no encontrado.")
 
+def menu_clientes():
+    while True:
+        print("\n" + "=" * 40)
+        print("       GESTIÓN DE CLIENTES")
+        print("=" * 40)
 
+        print("1. Registrar cliente")
+        print("2. Listar clientes")
+        print("3. Buscar cliente")
+        print("4. Modificar cliente")
+        print("5. Cambiar estado")
+        print("6. Cambiar nivel de riesgo")
+        print("7. Eliminar cliente")
+        print("8. Volver")
+
+        opcion = input("\nSeleccione una opción: ")
+
+        if opcion == "1":
+            registrar_cliente()
+        elif opcion == "2":
+            listar_clientes()
+        elif opcion == "3":
+            buscar_cliente()
+        elif opcion == "4":
+            modificar_cliente()
+        elif opcion == "5":
+            cambiar_estado()
+        elif opcion == "6":
+            cambiar_riesgo()
+        elif opcion == "7":
+            eliminar_cliente()
+        elif opcion == "8":
+            break
+        else:
+            print("Opción no válida.")
         
 
 
