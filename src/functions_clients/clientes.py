@@ -310,6 +310,7 @@ def view_client_profile():
 def update_client_info():
 def change_client_status():
 def delete_client():
+def show_client_services():
 
 
 
