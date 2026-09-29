@@ -14,6 +14,8 @@ from src.functions_admin.admin2clients import enroll_client
 from src.functions_admin.admin2services import add_service
 from src.functions_admin.admin2instructors import add_instructor
 
+from src.functions_clients.clientes import registrar_cliente
+
 def main():
     start = True
     while start:
@@ -101,5 +103,6 @@ def main():
             case _:
                 print("Opcion no valida. Intente nuevamente.")
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
+registrar_cliente()
