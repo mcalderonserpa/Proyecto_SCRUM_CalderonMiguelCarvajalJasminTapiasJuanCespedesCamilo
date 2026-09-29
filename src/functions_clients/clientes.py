@@ -41,27 +41,8 @@ def registrar_cliente():
     telefono_movil = input("Ingrese el teléfono móvil: ").strip()
     telefono_fijo = input("Ingrese el teléfono fijo: ").strip()
 
-    print("\nSeleccione el estado:")
-    print("1. En proceso de inscripción")
-    print("2. Inscrito")
-    print("3. Activo")
-    print("4. Inactivo")
+    estado = "En proceso de inscripción"
 
-    opcion_estado = input("Seleccione una opción: ")
-    
-    estados = {
-         "1": "En proceso de inscripción",
-         "2": "Inscrito",
-         "3": "Activo",
-         "4": "Inactivo"
-        }
-    
-    if opcion_estado not in estados:
-        print("Estado no válido.")
-        return
-    
-    estado = estados[opcion_estado]
-    
     print("\nSeleccione el nivel de riesgo:")
     print("1. Alto")
     print("2. Medio")
@@ -95,6 +76,37 @@ def registrar_cliente():
     guardar_clientes(clientes)
 
     print("\nCliente registrado correctamente.")
+
+def validar_id(identificacion, lista_clientes):
+    """
+    Valida que la identificación sea numérica, no esté vacía 
+    y no pertenezca a un cliente ya registrado.
+    """
+    identificacion = identificacion.strip()
+
+    # 1. Validar que contenga solo números
+    if not identificacion.isdigit():
+        print(" Error: La identificación debe contener solo números.")
+        return False
+
+    # 2. Validar que no esté repetida
+    for cliente in lista_clientes:
+        if cliente["identificacion"] == identificacion:
+            print(" Error: Ya existe un cliente registrado con ese número de identificación.")
+            return False
+
+    return True
+
+def validar_telefono(telefono):
+    """Valida que el teléfono contenga solo números y tenga exactamente 10 dígitos."""
+    telefono = telefono.strip()
+    if not telefono.isdigit():
+        print(" Error: El número telefónico debe contener solo números.")
+        return False
+    if len(telefono) != 10:
+        print(" Error: El número telefónico debe tener exactamente 10 dígitos.")
+        return False
+    return True
 
 def listar_clientes():
     clientes = cargar_clientes()
