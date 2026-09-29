@@ -8,11 +8,13 @@ from src.functions_menu.menus import submenu_services_admin
 from src.functions_menu.menus import submenu_reports
 from src.functions_menu.menus import submenu_instructors_admin
 
-from src.functions_admin.admin2clients import add_client  
+from src.functions_admin.admin2clients import add_client
 from src.functions_admin.admin2clients import show_clients
 from src.functions_admin.admin2clients import enroll_client
 from src.functions_admin.admin2services import add_service
 from src.functions_admin.admin2instructors import add_instructor
+
+from src.functions_clients.clientes import registrar_cliente
 
 def main():
     start = True
@@ -21,110 +23,86 @@ def main():
         opcion = input("\nSeleccione una opcion: ")
 
         match opcion:
-            case "1":
+            case "1": # 1. modulo clientes
                 menu_clients()
                 print("En Construccion")
 
-            case "2":
-                submenu_services_clients()
-                print("En Construccion")
-
-            case "3":
+            case "2": # 2. modulo instructores
                 menu_instructors()
                 print("En Construccion")
 
-            case "4":
+            case "3": # 3. modulo ADMIN
                 start2 = True
                 while start2:
                     menu_admin()
                     opcion2 = input("\nSeleccione una opcion: ")
 
                     match opcion2:
-                        case "1":
-                            submenu_enrollments()
-                            opcion3 = input("\nSeleccione una opcion: ")
+                        case "1": # 3.1 Admitir inscripciones
+                            print("En construccion")
+                            
+                        case "2": # 3.2 Listar clientes
+                            show_clients()
 
-                            match opcion3:
-                                case "1":
-                                    add_client()
-                                case "2":
-                                    show_clients()
-                                case "3":
-                                    enroll_client()
-                                case "4":
-                                    print("Volviendo al menu principal...")
-                                case _:
-                                    print("Opcion no valida. Intente nuevamente.")
-
-                        case "2":
+                        case "3": # 3.3 Gestion de servicios
                             submenu_services_admin()
                             opcion3 = input("\nSeleccione una opcion: ")
 
                             match opcion3:
-                                case "1":
+                                case "1": # 3.3.1 Registrar servicios
                                     add_service()
-                                case "2":
+
+                                case "2": # 3.3.2 Listar servicios
                                     print("En Construccion")
-                                case "3":
+                                    
+
+                                case "3": # 3.3.3 Modificar servicios
                                     print("En Construccion")
+
                                 case "4":
-                                    print("Volviendo al menu principal...")
+                                    print("Volviendo al menu ADMIN")
+
                                 case _:
                                     print("Opcion no valida. Intente nuevamente.")
 
-                        case "3":
-                            submenu_instructors_admin()
-                            opcion3 = input("\nSeleccione una opcion: ")
-
-                            match opcion3:
-                                case "1":
-                                    add_instructor()
-                                case "2":
-                                    print("En Construccion")
-                                case "3":
-                                    print("En Construccion")
-                                case "4":
-                                    print("Volviendo al menu principal...")
-                                case _:
-                                    print("Opcion no valida. Intente nuevamente.")
-
-                        case "4":
+                        case "4": # 3.4 Gestion de instructores
                             submenu_reports()
                             opcion3 = input("\nSeleccione una opcion: ")
 
                             match opcion3:
-                                case "1":
+                                case "1": # 3.4.1 Registrar instructor
                                     print("En Construccion")
-                                case "2":
+
+                                case "2": # 3.4.2 Listar instructores
                                     print("En Construccion")
-                                case "3":
+
+                                case "3": # 3.4.3 Eliminar instructor
                                     print("En Construccion")
-                                case "4":
-                                    print("En Construccion")
-                                case "5":
-                                    print("En Construccion")
-                                case "6":
-                                    print("Volviendo al menu principal...")
+
+                                case "4": # 3.4.4 Volver al menu principal
+                                    print("Volviendo al menu ADMIN")
+
                                 case _:
                                     print("Opcion no valida. Intente nuevamente.")
 
-                        case "5":
+                        case "5": # 3.5 Volver al menu principal
                             start2 = False
-                            print("Gracias por utilizar Gimnasio ForceTech.")
+                            print("\n Volviendo al menu principal.")
 
                         case _:
                             print("Opcion no valida. Intente nuevamente.")
 
-            case "5":
+            case "4": # 4. Modulo reportes
                 submenu_reports()
                 print("En Construccion")
 
-            case "6":
+            case "5": # 5. Salir
                 start = False
                 print("Gracias por utilizar Gimnasio ForceTech.")
 
             case _:
                 print("Opcion no valida. Intente nuevamente.")
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
+registrar_cliente()
