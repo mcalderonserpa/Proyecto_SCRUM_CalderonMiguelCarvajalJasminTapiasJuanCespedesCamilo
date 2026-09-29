@@ -306,7 +306,7 @@ def menu_clientes():
             break
         else:
             print("Opción no válida.")
-        
+def view_client_profile():
 
 
 
