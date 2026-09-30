@@ -42,9 +42,14 @@ def registrar_cliente():
 
     nombres = input("Ingrese los nombres: ").strip()
     apellidos = input("Ingrese los apellidos: ").strip()
+    if not nombres or not apellidos:
+        print("Los nombres y apellidos son obligatorios.")
+        return
     direccion = input("Ingrese la dirección: ").strip()
     telefono_movil = input("Ingrese el teléfono móvil: ").strip()
-    telefono_fijo = input("Ingrese el teléfono fijo: ").strip()
+    if not validar_telefono(telefono_movil):
+        return
+    
 
     estado = "En proceso de inscripción"
 
