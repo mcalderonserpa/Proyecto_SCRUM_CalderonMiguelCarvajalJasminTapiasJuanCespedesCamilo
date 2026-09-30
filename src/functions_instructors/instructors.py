@@ -60,7 +60,7 @@ def servicios_de_instructor(instructor):
     for servicio in get_services():
         if servicio['instructor'] == instructor['nombre'] or servicio['servicio'] in instructor.get('servicios', []):
             servicios.append(servicio)
-            return servicios
+        return servicios
 
 def seleccionar_servicio(instructor):
     servicios = servicios_de_instructor(instructor)
