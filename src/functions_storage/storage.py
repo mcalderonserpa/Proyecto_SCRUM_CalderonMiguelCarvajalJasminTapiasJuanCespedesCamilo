@@ -35,6 +35,13 @@ def get_instructors():
             instructors = json.load(file)
         return instructors
     except FileNotFoundError:
+        instructors = [
+            {
+                "nombre": "Miguel",
+                "servicio": None
+            }
+        ]
+
         return []
 
 # FT08.03.02 Funcion save_instructors
