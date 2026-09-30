@@ -397,4 +397,14 @@ def progreso_cliente(id_cliente):
     print(f"\n===== PROGRESO DE {nombre_cliente(id_cliente).upper()} =====")
     for nombre_servicio in servicios:
         mostrar_progreso_servicio(id_cliente, nombre_servicio)
+
+# Reporte 4.4: clientes con riesgo alto o bajo rendimiento
+def listar_riesgo_o_bajo_rendimiento():
+    print("\nClientes con riesgo alto o bajo rendimiento:\n")
+    lista = clientes_bajo_rendimiento()
+    if not lista:
+        print("No hay clientes en esta condicion.")
+        return
+    for n, c in enumerate(lista, start=1):
+        print(f"{n}. {c['nombre']} | riesgo: {c['nivel_riesgo']} | score: {c['score']} ({c['rendimiento']})")
         

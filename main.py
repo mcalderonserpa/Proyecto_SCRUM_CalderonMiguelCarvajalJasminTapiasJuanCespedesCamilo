@@ -18,7 +18,7 @@ from src.functions_admin.admin2instructors import add_instructor
 from src.functions_instructors.instructors import instructor_menu
 from src.functions_instructors.instructors import listar_instructores_activos
 from src.functions_instructors.instructors import eliminar_instructor
-from src.functions_instructors.instructors import listar_riesgo_alto
+from src.functions_instructors.instructors import listar_riesgo_o_bajo_rendimiento
 from src.functions_instructors.instructors import progreso_todos_los_clientes
 from src.functions_instructors.instructors import progreso_cliente
 
@@ -160,8 +160,8 @@ def main():
                         case "3": # 4.3 Instructores activos
                             listar_instructores_activos()
 
-                        case "4": # 4.4 Clientes con riesgo alto
-                            listar_riesgo_alto()
+                        case "4": # 4.4 Riesgo clientes
+                            listar_riesgo_o_bajo_rendimiento()
 
                         case "5": # 4.5 progreso clientes
                             progreso_todos_los_clientes()
