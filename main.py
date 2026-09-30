@@ -7,14 +7,26 @@ from src.functions_menu.menus import submenu_services_admin
 from src.functions_menu.menus import submenu_reports
 from src.functions_menu.menus import submenu_instructors_admin
 
-from src.functions_admin.admin2clients import add_client  
+from src.functions_admin.admin2clients import accept_client  
 from src.functions_admin.admin2clients import show_clients
 from src.functions_admin.admin2clients import enroll_client
 from src.functions_admin.admin2services import add_service
+from src.functions_admin.admin2services import show_services
+from src.functions_admin.admin2services import modify_service
 from src.functions_admin.admin2instructors import add_instructor
-from src.functions_instructors.instructors import instructor_menu
 
+from src.functions_instructors.instructors import instructor_menu
+from src.functions_instructors.instructors import listar_instructores_activos
+from src.functions_instructors.instructors import eliminar_instructor
+from src.functions_instructors.instructors import listar_riesgo_alto
+from src.functions_instructors.instructors import progreso_todos_los_clientes
+from src.functions_instructors.instructors import progreso_cliente
+
+from src.functions_clients.clientes import listar_clientes
 from src.functions_clients.clientes import registrar_cliente
+from src.functions_clients.clientes import buscar_cliente
+from src.functions_clients.clientes import search_cliente
+from src.functions_clients.clientes import modificar_cliente
 
 def main():
     start = True
@@ -33,7 +45,27 @@ def main():
                         case "1": # 1.1 Nuevo Registro
                             registrar_cliente()
                         case "2": # 1.2 Entrar al perfil
-                            print("En Construccion")
+                            start2 = True
+                            id = search_cliente()
+                            while start2:
+                                submenu_profile()
+                                opcion2 = input("\nSeleccione una opcion: ")
+
+                                match opcion2:
+                                    case "1":
+                                        buscar_cliente(id)
+                                    case "2":
+                                        enroll_client(id)
+                                    case "3":
+                                        progreso_cliente(id)
+                                    case "4":
+                                        modificar_cliente(id)
+                                    case "5":
+                                        start2 = False
+                                        print("Volviendo al menu principal...\n")
+                                    case _:
+                                        print("Opcion no valida, Intente nuevamente.")
+                                        
                         case "3": # 1.3 Volver al menu principal
                             start2 = False
                             print("Volviendo al menu principal...")
@@ -42,7 +74,8 @@ def main():
 
             case "2": # 2. modulo instructores
                 menu_instructors()
-                print("En Construccion")
+                instructor_menu()
+                    
 
             case "3": # 3. modulo ADMIN
                 start2 = True
@@ -52,10 +85,10 @@ def main():
 
                     match opcion2:
                         case "1": # 3.1 Admitir inscripciones
-                            print("En construccion")
+                            accept_client()
 
                         case "2": # 3.2 Listar clientes
-                            show_clients()
+                            listar_clientes()
 
                         case "3": # 3.3 Gestionar servicios
                             start3 = True
@@ -68,10 +101,10 @@ def main():
                                         add_service()
 
                                     case "2": # 3.3.2 Listar servicios
-                                        print("En Construccion")
+                                        show_services()
 
                                     case "3": # 3.3.3 Modificar servicios
-                                        print("En Construccion")
+                                        modify_service()
 
                                     case "4": # 3.3.4 Volver al menu de admin
                                         start3 = False
@@ -88,84 +121,16 @@ def main():
 
                                 match opcion3:
                                     case "1": # 3.4.1 Nuevo instructor
-                                        print("En Construccion")
+                                        add_instructor()
 
                                     case "2": # 3.4.2 Listar instructores
-                                        print("En Construccion")
+                                        listar_instructores_activos()
 
                                     case "3": # 3.4.3 Eliminar instructor
-                                        print("En Construccion")
+                                        eliminar_instructor()
 
                                     case "4": # 3.4.4 Volver al menu de admin
-                                        print("Volviendo al menu principal...")
-
-                                    case _:
-                                        print("Opcion no valida. Intente nuevamente.")
-
-                        case "5": # 3.5 Volver al menu principal
-                            start2 = False
-                            print("Gracias por utilizar Gimnasio ForceTech.")
-
-                        case _:
-                            print("Opcion no valida. Intente nuevamente.")
-
-            case "4": # 4. Menu reportes
-                submenu_reports()
-                print("En Construccion")
-
-            case "3": # 3. Modulo admin
-                start2 = True
-                while start2:
-                    menu_admin()
-                    opcion2 = input("\nSeleccione una opcion: ")
-
-                    match opcion2:
-                        case "1": # 3.1 Admitir inscripciones
-                            print("En construccion")
-
-                        case "2": # 3.2 Listar clientes
-                            show_clients()
-
-                        case "3": # 3.3 Gestionar servicios
-                            start3 = True
-                            while start3:
-                                submenu_services_admin()
-                                opcion3 = input("\nSeleccione una opcion: ")
-
-                                match opcion3:
-                                    case "1": # 3.3.1 Nuevo Servicio
-                                        add_service()
-
-                                    case "2": # 3.3.2 Listar servicios
-                                        print("En Construccion")
-
-                                    case "3": # 3.3.3 Modificar servicios
-                                        print("En Construccion")
-
-                                    case "4": # 3.3.4 Volver al menu de admin
                                         start3 = False
-                                        print("Volviendo al menu principal...")
-
-                                    case _:
-                                        print("Opcion no valida. Intente nuevamente.")
-
-                        case "4": # 3.4 Gestionar instructores
-                            start3 = True
-                            while start3:
-                                submenu_instructors_admin()
-                                opcion3 = input("\nSeleccione una opcion: ")
-
-                                match opcion3:
-                                    case "1": # 3.4.1 Nuevo instructor
-                                        print("En Construccion")
-
-                                    case "2": # 3.4.2 Listar instructores
-                                        print("En Construccion")
-
-                                    case "3": # 3.4.3 Eliminar instructor
-                                        print("En Construccion")
-
-                                    case "4": # 3.4.4 Volver al menu de admin
                                         print("Volviendo al menu principal...")
 
                                     case _:
@@ -186,19 +151,19 @@ def main():
 
                     match opcion2:
                         case "1": # 4.1 Clientes inscritos
-                            print("En Construccion")
+                            listar_clientes()
 
                         case "2": # 4.2 Servicios y capacidad
-                            print("En Construccion")
+                            show_services()
 
                         case "3": # 4.3 Instructores activos
-                            print("En Construccion")
+                            listar_instructores_activos()
 
                         case "4": # 4.4 Clientes con riesgo alto
-                            print("En Construccion")
+                            listar_riesgo_alto()
 
                         case "5": # 4.5 progreso clientes
-                            print("En Construccion")
+                            progreso_todos_los_clientes()
 
                         case "6": # 4.6 Volver al menu principal
                             start2 = False

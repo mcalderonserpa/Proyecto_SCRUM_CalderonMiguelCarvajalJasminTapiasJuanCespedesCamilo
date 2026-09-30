@@ -4,6 +4,7 @@ from src.functions_storage.storage import save_clients
 from src.functions_storage.storage import get_services
 from src.functions_storage.storage import save_services
 
+
 # FT04.01.01 Funcion add_client
 def accept_client():
     clients = get_clients()
@@ -24,10 +25,10 @@ def accept_client():
             
 
 # FT04.01.02 Funcion enroll_client
-def enroll_client():
+def enroll_client(id):
     clients = get_clients()
     servicios = get_services()
-    id = int(input("Ingrese el ID del cliente que desea matricular: "))
+    #id = input("Ingrese el ID del cliente que desea matricular: ")
     for cliente in clients:
         if cliente['id'] == id:
             servicio_matricula = input("Ingrese el servicio: ")
@@ -46,12 +47,7 @@ def enroll_client():
                             "riesgo": riesgo
                         })
                         save_services(servicios)
-                        cliente['servicios'].append({
-                            "servicio": servicio['servicio'],
-                            "fecha_inicio": fecha_inicio,
-                            "fecha_fin": fecha_fin
-                        })
-                        save_clients(clients)
+
                     else:
                         print(f"No hay cupos disponibles para el servicio: {servicio['servicio']}")
                         break

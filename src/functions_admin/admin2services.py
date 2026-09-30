@@ -33,14 +33,25 @@ def add_service():
     save_services(services)
 
 # FT04.02.02 Funcion modify_service
+def show_services():
+    services = get_services()
+    if not services:
+        print("No hay servicios registrados.")
+    else:
+        for service in services:
+            print(f"\nServicio: {service['servicio']}\nCupos: {service['cupos']}\nInstructor: {service['instructor']}")
+
+# FT04.02.03 Funcion modify_service
 def modify_service():
     services = get_services()
-    service = input("Ingrese el nombre del servicio que desea modificar: ").lower()
+    n = 1
     for service in services:
-        if service['servicio'] == service:
-            cupos_adicionales = int(input("Ingrese la cantidad de cupos que desea añadir o quitar (-): "))
-            service['cupos'] += cupos_adicionales
-            instructor = input("Ingrese el nuevo nombre del instructor: ").lower()
-            service['instructor'] = instructor
-            save_services(services)
-            break
+        print(f"{n}. Servicio: {service['servicio']}\nCupos: {service['cupos']}\nInstructor: {service['instructor']}")
+        n += 1
+    
+    opcion = int(input("Seleccione el numero del servicio que desea modificar: ")) - 1
+    services[opcion]['cupos'] += int(input("Ingrese la cantidad de cupos que desea añadir o quitar (-): "))
+    if services[opcion]['cupos'] < 0:
+        print("No se puede tener cupos negativos. Se establecera en 0")
+        services[opcion]['cupos'] = 0
+    save_services(services)

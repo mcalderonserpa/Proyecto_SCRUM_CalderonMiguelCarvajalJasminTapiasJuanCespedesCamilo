@@ -1,6 +1,7 @@
 from datetime import date, datetime
 
 from src.functions_storage.storage import get_instructors
+from src.functions_storage.storage import save_instructors
 from src.functions_storage.storage import get_services
 from src.functions_storage.storage import get_clients
 from src.functions_storage.storage import get_attendance
@@ -351,4 +352,45 @@ def progreso_todos_los_clientes():
             mostrar_progreso_servicio(cliente['id'], nombre_servicio)
     if not hay_datos:
         print("No hay clientes matriculados en servicios.")
+
+
+def listar_instructores_activos():
+    print("\nInstructores\n")
+    instructores = get_instructors()
+    n = 1
+    for instructor in instructores:
+        if instructor['estado'] == "activo":
+            print(f"{n}. {instructor['nombre']}")
+            n += 1
+
+def eliminar_instructor():
+    instructores = get_instructors()
+    n = 1
+    for instructor in instructores:
+        if instructor['estado'] == "activo":
+            print(f"{n}. {instructor['nombre']}")
+            n += 1
+    opcion = int(input("Seleccione el numero del instructor que desea eliminar: ")) - 1
+    instructores[opcion]['estado'] = "inactivo"
+    save_instructors(instructores)
+
+def listar_riesgo_alto():
+    print("\nClientes con riesgo alto:\n")
+    clientes = get_clients()
+    n = 1
+    for cliente in clientes:
+        if cliente['nivel_riesgo'] == "Alto":
+            print(f"{n}. {cliente['nombres']} {cliente['apellidos']}")
+            n += 1 
+
+# Funcion progreso_cliente
+def progreso_cliente(id_cliente):
+    servicios = [s['servicio'] for s in get_services()
+                 if any(m['id'] == id_cliente for m in s['matriculas'])]
+    if not servicios:
+        print("El cliente no esta matriculado en ningun servicio.")
+        return
+    print(f"\n===== PROGRESO DE {nombre_cliente(id_cliente).upper()} =====")
+    for nombre_servicio in servicios:
+        mostrar_progreso_servicio(id_cliente, nombre_servicio)
         
