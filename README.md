@@ -4,11 +4,11 @@ Sistema de gestión de clientes, instructores y servicios
 
 ## 📖 Descripción del Proyecto
 
-Es un sistema de gestión desarrollado en Python para organizar y administrar la información relacionada con los clientes, instructores, servicios, matrículas y reportes de un gimnasio.
+ForceTech Gym es un sistema de consola desarrollado en Python para organizar la información de un gimnasio: clientes, servicios, matrículas, instructores y reportes.
 
-El sistema busca centralizar la información y facilitar procesos como el registro y consulta de clientes, gestión de servicios, control de instructores, matrículas y generación de reportes.
+Permite inscribir clientes, matricularlos en servicios con control de cupos, registrar su asistencia y sus evaluaciones de condición física, y consultar reportes de progreso y rendimiento. La información se guarda en archivos JSON, así que no se pierde al cerrar el programa.
 
-El proyecto se desarrolla bajo el marco de trabajo SCRUM, utilizando Git y GitHub para el control de versiones y el trabajo colaborativo entre los integrantes del equipo.
+El proyecto se desarrolló bajo el marco de trabajo SCRUM, con Git y GitHub para el control de versiones y el trabajo colaborativo.
 
 ## 🎯 Objetivo del Proyecto
 
@@ -18,111 +18,213 @@ Desarrollar un sistema que permita gestionar de manera organizada la informació
 
 |     Integrante                | Responsabilidad / Módulo                             |          Rol               |  
 | ----------------------------- | ---------------------------------------------------- | -------------------------- |
-| Miguel Ricardo Calderón Serpa | Facilitar el Scrum y remover impedimentos            | Scrum Master               |
-| Jasmin Sofía Carvajal Prada   | Construir, probar e integrar funcionalidades         | Development Team           |
+| Miguel Ricardo Calderón Serpa | Facilitar el Scrum y remover impedimentos            | Scrum Master - Development Team               |
+| Jasmin Sofía Carvajal Prada   | Construir, probar e integrar funcionalidades         | Development Team            |
 | Juan Daniel Tapias            | Construir, probar e integrar funcionalidades         | Development Team           |
 | Camilo Andrés Gonzales        | Definir y priorizar las funcionalidades del proyecto | Product Owner              |
 
 
 ## ⚙️ Módulos del Sistema
 
-### 👤 Gestión de Clientes
+### 👤 Módulo de clientes
 
-Permite administrar la información de los clientes del gimnasio.
+| Opción | Función |
+| --- | --- |
+| 1. Solicitud nuevo registro | El cliente ingresa su cédula, nombres, apellidos, dirección, teléfonos y nivel de riesgo. La solicitud queda pendiente de aprobación. |
+| 2. Ver perfil | El cliente ingresa con su cédula y accede a su perfil. |
+ 
+Dentro del **perfil**:
+ 
+| Opción | Función |
+| --- | --- |
+| 1. Ver datos de perfil | Muestra los datos personales, el estado y el nivel de riesgo. |
+| 2. Matricular servicio | Inscribe al cliente en un servicio, con fecha de inicio y de finalización. |
+| 3. Seguimiento de proceso | Muestra la asistencia, las evaluaciones, la tendencia y el rendimiento en cada servicio. |
+| 4. Modificar datos | Permite actualizar nombres, apellidos, dirección y teléfonos (dejar vacío para no cambiar). |
+| 5. Volver al menú principal | |
 
-Entre los datos gestionados se encuentran:
+### 👨‍🏫 Módulo de instructores
 
-* Número de identificación.
-* Nombres.
-* Apellidos.
-* Dirección.
-* Teléfono celular.
-* Teléfono fijo.
-* Estado del cliente.
-* Nivel de riesgo.
+El instructor ingresa con su **cédula** y solo ve los servicios que tiene asignados.
+ 
+| Opción | Función |
+| --- | --- |
+| 1. Registrar asistencia | Elige un servicio y una fecha, y responde **SI** o **NO** por cada cliente matriculado. |
+| 2. Registrar evaluación de rendimiento | Elige un servicio y un cliente, y registra una nota de **0.1 a 10** con observaciones opcionales. Al guardar muestra el score actualizado del cliente. |
+| 3. Volver al menú principal | |
+ 
+Ejemplo de registro de asistencia:
+ 
+```text
+Asistencia de yoga - 20-09-2026  (SI = asistio, NO = no asistio)
+  [1001] ana perez: si
+  [2002] luis gomez: NO
+ 
+Asistencia guardada: 1 asistentes, 1 ausentes.
+```
 
-Los estados contemplados son:
+### 👨‍💼 Módulo de administrador
 
-* En proceso de inscripción.
-* Inscrito.
-* Activo.
-* Inactivo.
+| Opción | Función |
+| --- | --- |
+| 1. Admitir inscripciones clientes | Muestra cada solicitud pendiente y permite aceptarla; las no aceptadas siguen pendientes. |
+| 2. Listar clientes | Muestra todos los clientes registrados. |
+| 3. Gestión de servicios | Registrar, listar y modificar servicios (agregar o quitar cupos). |
+| 4. Gestión de instructores | Registrar, listar y eliminar instructores. |
+| 5. Volver al menú principal | |
+ 
+> "Eliminar instructor" **desactiva** al instructor en lugar de borrarlo, para conservar las asistencias y evaluaciones que registró. Un instructor desactivado no puede iniciar sesión.
 
-El nivel de riesgo puede clasificarse como:
 
-* Alto.
-* Medio.
-* Bajo.
+### 📊 Módulo de reportes
 
-### 🏋️ Gestión de Servicios
+| Opción | Contenido |
+| --- | --- |
+| 1. Clientes inscritos | Todos los clientes con sus datos. |
+| 2. Servicios y capacidad | Cada servicio con sus cupos disponibles y su instructor. |
+| 3. Instructores activos | Instructores con estado activo. |
+| 4. Clientes con riesgo alto | Clientes con **riesgo alto o con bajo rendimiento**, con su score y nivel. |
+| 5. Progreso de clientes | Para cada cliente matriculado: asistencia, historial de evaluaciones, tendencia y score por servicio. |
+ 
+---
 
-Permite administrar los diferentes servicios ofrecidos por el gimnasio y controlar información relacionada con su disponibilidad y capacidad.
+## 📋 Reglas del negocio
 
-### 👨‍🏫 Gestión de Instructores
+### Clientes
+ 
+- La cédula debe ser numérica y no puede repetirse.
+- Nombres y apellidos son obligatorios.
+- El teléfono móvil debe tener exactamente 10 dígitos.
+- Niveles de riesgo: **Alto**, **Medio**, **Bajo**.
+- Estados: **En proceso de inscripción** (al registrarse) → **Inscrito** (cuando el administrador lo acepta).
+  
+### Servicios y matrículas
+ 
+- El nombre del servicio es único. Se guarda en minúsculas, así que "Yoga" y "yoga" son el mismo servicio.
+- Los cupos deben ser un número mayor que 0 y nunca quedan negativos.
+- Solo se pueden matricular clientes **Inscritos** o **Activos**.
+- Un cliente no puede matricularse dos veces en el mismo servicio.
+- Cada matrícula descuenta un cupo; si no hay cupos, se rechaza.
+  
+### Instructores
+ 
+- La cédula debe ser numérica y única.
+- El nombre es obligatorio y no puede repetirse (los servicios se asignan por nombre).
+  
+### Asistencia y evaluaciones
+ 
+- Todas las fechas se escriben en formato **DD-MM-AAAA** (por ejemplo, `20-09-2026`). Si la fecha se deja vacía se usa la de hoy.
+- No se puede registrar dos veces la asistencia del mismo servicio en la misma fecha.
+- Las calificaciones van de **0.1 a 10** y aceptan punto o coma decimal (`9.5` o `9,5`).
+  
+### Cálculo del rendimiento
+ 
+```text
+score = (suma de calificaciones ÷ número de evaluaciones) − 0.1 × inasistencias
+```
+ 
+El resultado se limita entre 0 y 10, y se clasifica así:
+ 
+| Score | Rendimiento |
+| --- | --- |
+| Menor que 5.0 | Bajo |
+| De 5.0 a menos de 7.0 | Medio |
+| 7.0 o más | Alto |
+ 
+Ejemplo: un cliente con evaluaciones de 6.5 y 8.0 y una inasistencia tiene un score de `(6.5 + 8.0) ÷ 2 − 0.1 = 7.15` → rendimiento **alto**.
 
-Permite gestionar la información correspondiente a los instructores encargados de los diferentes servicios y actividades del gimnasio.
-
-### 📝 Gestión de Matrículas
-
-Permite administrar la información relacionada con las matrículas de los clientes y su vinculación con los servicios ofrecidos.
-
-### 📊 Gestión de Reportes
-
-Permite generar información organizada a partir de los datos registrados en el sistema para facilitar la consulta y seguimiento de la información.
-
-### 👨‍💼 Gestión de Administrador
-
-Contiene funcionalidades destinadas a la administración general del sistema y a la gestión de los procesos que requieren permisos administrativos.
+### Validación de entradas
+ 
+Si se escribe texto donde se espera un número, una opción fuera de la lista o una fecha con formato incorrecto, el sistema muestra un mensaje y vuelve a preguntar o regresa al menú; el programa no se cierra.
+ 
+---
 
 ## 💾 Persistencia de Datos
 
-El proyecto utiliza archivos **JSON** para almacenar información de manera persistente.
+La información se guarda en archivos **JSON** que el programa crea automáticamente la primera vez que los necesita:
+ 
+| Archivo | Contenido |
+| --- | --- |
+| `clients.json` | Clientes registrados |
+| `services.json` | Servicios, cupos, instructor asignado y matrículas |
+| `instructors.json` | Instructores, estado y servicios asignados |
+| `asistencias.json` | Una entrada por sesión: servicio, fecha, instructor, asistentes y ausentes |
+| `evaluaciones.json` | Evaluaciones: cliente, servicio, instructor, fecha, calificación y observaciones |
+ 
+- Si un archivo no existe, el sistema empieza con una lista vacía.
+- Si un archivo está vacío o dañado, el sistema muestra un aviso y sigue funcionando.
+- Los archivos `.json` están excluidos del repositorio (`.gitignore`), así cada instalación empieza con sus propios datos.
+- Para hacer una **copia de seguridad**, basta con copiar estos cinco archivos.
+---
 
-De esta forma, los datos registrados no se pierden al cerrar el programa y pueden ser consultados posteriormente.
 
 ## 🛠️ Tecnologías utilizadas
-
-* **Python **
+ 
+* **Python 3.10+**
 * **JSON**
-* **Git**
-* **GitHub**
+* **Git** y **GitHub**
 * **Visual Studio Code**
-* **SCRUM**
+* **Notion** (gestión SCRUM)
+---
 
 ## 📁 Estructura del Proyecto
-
+ 
 ```text
 ForceTech Gym/
 │
-├── main.py
+├── main.py                          # Punto de entrada: menú principal y navegación
 ├── README.md
 ├── .gitignore
 │
-├── menus/
-│
 └── src/
-    │
     ├── functions_admin/
-    │   ├── admin2clients.py
-    │   ├── admin2instructors.py
-    │   └── admin2services.py
+    │   ├── admin2clients.py         # Admitir inscripciones y matrículas
+    │   ├── admin2instructors.py     # Registrar instructores
+    │   └── admin2services.py        # Registrar, listar y modificar servicios
     │
     ├── functions_clients/
-    │   └── clientes.py
-    |
+    │   └── clientes.py              # Registro, perfil y modificación de clientes
+    │
     ├── functions_instructors/
-    │   └── instructors.py
+    │   └── instructors.py           # Login, asistencia, evaluaciones, score y reportes
     │
     ├── functions_menu/
-    │   └── menus.py
+    │   └── menus.py                 # Textos de todos los menús
     │
     ├── functions_reports/
-    │   └── reportes.py
+    │   └── reportes.py              # Reservado para los reportes
     │
-    └── functions_storage/
-        └── storage.py
-
+    ├── functions_storage/
+    │   └── storage.py               # Lectura y escritura de los archivos JSON
+    │
+    └── functions_utils/
+        └── validaciones.py          # Validación de números y fechas
 ```
+---
+
+## ⚠️ Limitaciones conocidas
+
+Estas funciones quedaron registradas en el Product Backlog para una próxima versión:
+ 
+- El cliente todavía no puede **retirarse** de un servicio.
+- El perfil del cliente no tiene una opción para **ver sus servicios matriculados** ni la **lista de servicios disponibles**. Los servicios se consultan desde el administrador o los reportes.
+- El reporte "Servicios y capacidad" muestra los **cupos disponibles**, no la capacidad máxima original.
+- Los datos se guardan localmente en archivos JSON, pensados para un solo equipo a la vez.
+---
+
+
+# 🔄 Proceso de desarrollo
+ 
+## 📚 Metodología SCRUM
+ 
+El proyecto se gestionó con **SCRUM** en Notion, mediante:
+ 
+* Product Backlog con historias de usuario, prioridades y criterios de aceptación.
+* Sprint Planning, Daily Stand-up, Sprint Review y Sprint Retrospective.
+* Tareas de desarrollo por módulo y seguimiento del avance.
+* Ramas, commits y Pull Requests en GitHub para integrar cada funcionalidad.
+
+
 ⚙️ Instalación, configuración y repositorio local
 
 Al inicio del proyecto se configuró Git en los equipos de los integrantes para permitir el control de versiones y el trabajo colaborativo.
@@ -191,17 +293,17 @@ Para consultar las ramas locales y remotas se utilizó:
 git branch -a
 ```
 
-La rama principal utilizada en el proyecto es:
-
-```text
-main
-```
-
-Una de las ramas utilizadas para desarrollar funcionalidades específicas es:
-
-```text
-feature/gestion-clientes
-```
+| Rama | Propósito |
+| --- | --- |
+| `main` | Rama principal y estable |
+| `refactor/nueva-estructura-proyecto` | Estructura de carpetas `src/` |
+| `feature/storage-instructor` | Almacenamiento JSON de instructores |
+| `feature/administrador` | Módulo de administrador |
+| `feature/gestion-clientes` | Módulo de clientes |
+| `features/instructor_tools` | Módulo de instructores (asistencia, evaluaciones, score) |
+| `fix/correccion_menu` · `fix/menu-final` | Ajustes de menús |
+| `fix/ajustes-compatibilidad` | Compatibilidad entre módulos |
+| `fix_project` | Corrección general antes de la entrega |
 
 ### 📸 Evidencia de las ramas
 
@@ -209,16 +311,27 @@ feature/gestion-clientes
 
 
 
-## 🔀 Integración de cambios
-
-Una vez finalizado el desarrollo de una funcionalidad, los cambios pueden integrarse a la rama principal mediante un proceso de merge.
-
-Para consultar el historial y observar la relación entre las ramas se utilizó:
-
+## 🔀 Integración de cambios (Pull Requests)
+ 
+Cada funcionalidad terminada se integró a `main` mediante un Pull Request revisado por el equipo:
+ 
+| PR | Rama | Contenido |
+| --- | --- | --- |
+| #1 | `refactor/nueva-estructura-proyecto` | Nueva estructura del proyecto |
+| #2 | `feature/storage-instructor` | Almacenamiento de instructores |
+| #3 | `fix/correccion_menu` | Corrección de menús |
+| #4, #7 | `feature/gestion-clientes` | Módulo de clientes |
+| #5 | `features/instructor_tools` | Módulo de instructores |
+| #8 | `fix/ajustes-compatibilidad` | Compatibilidad entre módulos |
+| #9 | `fix_project` | Corrección de 12 errores detectados en pruebas |
+ 
+Para consultar el historial y la relación entre ramas:
+ 
 ```bash
 git log --oneline --graph --all
 ```
 
+ 
 ### 📸 Evidencia del historial de ramas
 
 <img width="731" height="272" alt="image" src="https://github.com/user-attachments/assets/a3d9df1d-92e0-42f5-80de-a87ac90e3298" />
@@ -260,23 +373,21 @@ Los tipos principales utilizados son:
 <img width="660" height="296" alt="image" src="https://github.com/user-attachments/assets/89a0daa5-df90-4c3e-a7fc-f80d8c18be36" />
 
 
-# 🔄 Sincronización del proyecto
-
-Para mantener sincronizados los repositorios locales y remotos se utilizaron los comandos:
-
+## 🔄 Sincronización del proyecto
+ 
+Para mantener sincronizados el repositorio local y el remoto:
+ 
 ```bash
-git pull
+git pull   # trae los cambios del remoto y actualiza la copia local
+git push   # envía los commits locales al remoto
 ```
+ 
+Cada integrante actualizaba su rama antes de continuar cuando otros colaboradores habían integrado cambios.
+ 
+### 📸 Evidencia de sincronización
+ 
+<img width="1437" height="565" alt="image" src="https://github.com/user-attachments/assets/7c640122-d97b-443a-8481-fbe46dea7775" />
 
-y:
-
-```bash
-git push
-```
-
-`git pull` permite obtener los cambios realizados en el repositorio remoto y actualizar el repositorio local.
-
-`git push` permite enviar los commits realizados localmente hacia el repositorio remoto.
 
 ## 🔄 Sincronización entre integrantes
 
@@ -287,47 +398,38 @@ Cada integrante debe actualizar su rama antes de continuar trabajando cuando exi
 <img width="1437" height="565" alt="image" src="https://github.com/user-attachments/assets/7c640122-d97b-443a-8481-fbe46dea7775" />
 
 
-# 👥 Colaboración en GitHub
-
-El desarrollo del proyecto se realizó mediante un flujo de trabajo colaborativo utilizando Git y GitHub.
-
-Cada integrante trabajó en las funcionalidades asignadas mediante ramas independientes y registró sus avances utilizando commits.
-
-## 👤 Miguel Ricardo Calderón Serpa
-
-Su participación está relacionada con la integración y desarrollo general del proyecto, incluyendo la organización de la estructura y coordinación de los cambios realizados en las diferentes ramas.
-
-### 📸 Evidencia de commits
-
+## 👥 Colaboración en GitHub
+ 
+Cada integrante trabajó sus funcionalidades en ramas independientes, registró sus avances con commits y los integró mediante Pull Requests.
+ 
+### 👤 Camilo Andrés Gonzales — Product Owner
+ 
+Definió y priorizó las funcionalidades del Product Backlog, validó los criterios de aceptación y revisó los incrementos entregados en la Sprint Review.
+ 
+### 👤 Miguel Ricardo Calderón Serpa — Scrum Master · Development Team
+ 
+Facilitó las ceremonias SCRUM y la remoción de impedimentos. En desarrollo, se encargó de la estructura del proyecto, el almacenamiento en JSON, el módulo de administrador y la integración de las ramas (PR #1, #2, #3 y #8).
+ 
+#### 📸 Evidencia de commits
+ 
 <img width="908" height="277" alt="image" src="https://github.com/user-attachments/assets/8d0e83a3-58b0-42f4-906d-2e0b229e22da" />
 
-
-## 👤 Jasmin Sofía Carvajal Prada
-
-Su participación corresponde a la **gestión de clientes**.
-
-El módulo permite registrar y administrar la información de los clientes del gimnasio, incluyendo sus datos personales, estado y nivel de riesgo.
-
-También se implementó el almacenamiento de la información utilizando archivos JSON.
-
-### 📸 Evidencia de commits
-
+### 👤 Jasmin Sofía Carvajal Prada — Development Team
+ 
+Desarrolló el **módulo de clientes**: solicitud de registro, perfil, modificación de datos, estados y nivel de riesgo, con su almacenamiento en JSON (PR #4 y #7).
+ 
+#### 📸 Evidencia de commits
+ 
 <img width="938" height="330" alt="image" src="https://github.com/user-attachments/assets/1a8d46cd-808a-482c-9160-ce163a6d2615" />
 
-
-## 👤 Juan Daniel Tapias
-
-Su participación corresponde al desarrollo de las funcionalidades asignadas dentro del sistema de gestión del gimnasio.
-
-### 📸 Evidencia de commits
-
+### 👤 Juan Daniel Tapias — Development Team
+ 
+Desarrolló el **módulo de instructores**: inicio de sesión por cédula, registro de asistencia, evaluaciones de rendimiento, cálculo del score y las funciones que usan los reportes de riesgo y progreso (PR #5). Como corrector, uso la rama `fix_project`, que corrigió  errores antes de la entrega (PR #9).
+ 
+#### 📸 Evidencia de commits
+ 
 <img width="923" height="187" alt="image" src="https://github.com/user-attachments/assets/5f1f1bb3-75d6-4be8-b5aa-279d3a02c891" />
-
-
-## 👤 Camilo Andrés Gonzales
-
-Su participación corresponde al desarrollo de las funcionalidades asignadas del proyecto.
-
+---
 
 # ▶️ Ejecución del proyecto
 
@@ -340,36 +442,17 @@ python main.py
 Al ejecutar el programa se muestra el menú principal, desde donde se puede acceder a las diferentes funcionalidades del sistema.
 
 ## 📌 Estado del Proyecto
-
-**Proyecto académico en desarrollo.**
-
-El sistema continúa incorporando y mejorando las funcionalidades definidas en los requerimientos del proyecto.
-
-## 📚 Metodología de desarrollo
-
-El proyecto utiliza **SCRUM** como marco de trabajo.
-
-El desarrollo se organiza mediante:
-
-* Historias de usuario.
-* Requerimientos funcionales.
-* Requerimientos no funcionales.
-* Tareas de desarrollo.
-* Ramas .
-* Commits.
-* Integración de funcionalidades.
-* Seguimiento del avance del proyecto.
-
+ 
+**Proyecto finalizado y entregado.**
+ 
+Las funcionalidades pendientes están descritas en [Limitaciones conocidas](#️-limitaciones-conocidas) y registradas en el Product Backlog.
+ 
 ## 🔗 Repositorio
-
-Repositorio oficial:
-
-**ForceTech Gym**
-
+ 
 `https://github.com/mcalderonserpa/Proyecto_SCRUM_CalderonMiguelCarvajalJasminTapiasJuanCespedesCamilo`
-
+ 
 ---
-
+ 
 **ForceTech Gym — Sistema de gestión de clientes, instructores y servicios**
 
 
