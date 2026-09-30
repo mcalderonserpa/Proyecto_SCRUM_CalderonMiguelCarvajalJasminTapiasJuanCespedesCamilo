@@ -306,7 +306,135 @@ def menu_clientes():
             break
         else:
             print("Opción no válida.")
-        
+
+from src.functions_storage.storage import get_clients, save_clients
+
+# 1. VER PERFIL COMPLETO (POR ID)
+def view_client_profile():
+    clients = get_clients()
+    try:
+        id_buscar = int(input("\nIngrese el ID del cliente a consultar: "))
+    except ValueError:
+        print(" Error: El ID debe ser un número entero.")
+        return
+
+    for cliente in clients:
+        if cliente.get("id") == id_buscar:
+            print("\n==================================================")
+            print(f"             PERFIL DE CLIENTE #{cliente.get('id')}")
+            print("==================================================")
+            print(f" Nombres        : {cliente.get('nombres')}")
+            print(f" Apellidos      : {cliente.get('apellidos')}")
+            print(f" Dirección      : {cliente.get('direccion')}")
+            print(f" Teléfono Móvil : {cliente.get('telefono_movil')}")
+            print(f" Teléfono Fijo  : {cliente.get('telefono_fijo')}")
+            print(f" Estado         : {cliente.get('estado')}")
+            print(f" Nivel Riesgo   : {cliente.get('nivel_riesgo')}")
+            print("==================================================\n")
+            return
+
+    print(f"\n No se encontró el cliente con ID: {id_buscar}")
+
+
+# 2. EDITAR DATOS PERSONALES
+def update_client_info():
+    clients = get_clients()
+    try:
+        id_buscar = int(input("\nIngrese el ID del cliente a modificar: "))
+    except ValueError:
+        print(" Error: El ID debe ser un número entero.")
+        return
+
+    for cliente in clients:
+        if cliente.get("id") == id_buscar:
+            print(f"\nModificando perfil de: {cliente['nombres']} {cliente['apellidos']}")
+            print("(Deje en blanco y presione ENTER si no desea cambiar el valor)")
+
+            direccion = input(f"Dirección [{cliente['direccion']}]: ").strip()
+            movil = input(f"Teléfono Móvil [{cliente['telefono_movil']}]: ").strip()
+            fijo = input(f"Teléfono Fijo [{cliente['telefono_fijo']}]: ").strip()
+            riesgo = input(f"Nivel de Riesgo [{cliente['nivel_riesgo']}]: ").strip()
+
+            if direccion: cliente['direccion'] = direccion
+            if movil: cliente['telefono_movil'] = movil
+            if fijo: cliente['telefono_fijo'] = fijo
+            if riesgo: cliente['nivel_riesgo'] = riesgo
+
+            save_clients(clients)
+            print(" Datos del perfil actualizados correctamente.")
+            return
+
+    print(f"\n No se encontró el cliente con ID: {id_buscar}")
+
+
+# 3. CAMBIAR ESTADO (ACTIVO / INACTIVO)
+def change_client_status():
+    clients = get_clients()
+    try:
+        id_buscar = int(input("\nIngrese el ID del cliente: "))
+    except ValueError:
+        print(" Error: El ID debe ser un número entero.")
+        return
+
+    for cliente in clients:
+        if cliente.get("id") == id_buscar:
+            print(f"Estado actual de {cliente['nombres']}: {cliente['estado']}")
+            nuevo_estado = input("Ingrese el nuevo estado (ej. Activo/Inactivo/Suspendido): ").strip()
+            if nuevo_estado:
+                cliente['estado'] = nuevo_estado
+                save_clients(clients)
+                print(" Estado actualizado correctamente.")
+            return
+
+    print(f"\n No se encontró el cliente con ID: {id_buscar}")
+
+
+# 4. ELIMINAR CLIENTE
+def delete_client():
+    clients = get_clients()
+    try:
+        id_buscar = int(input("\nIngrese el ID del cliente a eliminar: "))
+    except ValueError:
+        print(" Error: El ID debe ser un número entero.")
+        return
+
+    for cliente in clients:
+        if cliente.get("id") == id_buscar:
+            confirmar = input(f"¿Está seguro de eliminar a {cliente['nombres']} {cliente['apellidos']}? (s/n): ").lower()
+            if confirmar == 's':
+                clients.remove(cliente)
+                save_clients(clients)
+                print(" Cliente eliminado del sistema correctamente.")
+            else:
+                print(" Operación cancelada.")
+            return
+
+    print(f"\n No se encontró el cliente con ID: {id_buscar}")
+
+
+# 5. CONSULTAR SERVICIOS DEL CLIENTE
+def show_client_services():
+    clients = get_clients()
+    try:
+        id_buscar = int(input("\nIngrese el ID del cliente: "))
+    except ValueError:
+        print(" Error: El ID debe ser un número entero.")
+        return
+
+    for cliente in clients:
+        if cliente.get("id") == id_buscar:
+            servicios = cliente.get("servicios", [])
+            print(f"\n--- SERVICIOS DE {cliente['nombres']} {cliente['apellidos']} ---")
+            if servicios:
+                for idx, s in enumerate(servicios, 1):
+                    print(f"{idx}. Servicio    : {s.get('servicio')}")
+                    print(f"   Fecha Inicio: {s.get('fecha_inicio')}")
+                    print(f"   Fecha Fin   : {s.get('fecha_fin')}\n")
+            else:
+                print(" El cliente no tiene servicios matriculados actualmente.\n")
+            return
+
+    print(f"\n No se encontró el cliente con ID: {id_buscar}")        
 
 
 
