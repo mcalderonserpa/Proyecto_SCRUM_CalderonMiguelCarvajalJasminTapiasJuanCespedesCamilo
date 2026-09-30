@@ -22,11 +22,10 @@ def menu_clients():
 def submenu_profile():
     print("\n--- PERFIL ---")
     print("1. Ver datos de perfil")
-    print("2. Ver servicios matriculados")
+    print("2. Matricular servicio")
     print("3. Seguimiento de proceso")
     print("4. Modificar datos")
-    print("5. Submenu de servicios")
-    print("6. Volver al menu de clientes")
+    print("5. Volver al menu principal")
 
 # FT
 def menu_instructors():

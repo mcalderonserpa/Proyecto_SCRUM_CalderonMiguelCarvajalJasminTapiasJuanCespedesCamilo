@@ -18,9 +18,15 @@ from src.functions_admin.admin2instructors import add_instructor
 from src.functions_instructors.instructors import instructor_menu
 from src.functions_instructors.instructors import listar_instructores_activos
 from src.functions_instructors.instructors import eliminar_instructor
+from src.functions_instructors.instructors import listar_riesgo_alto
+from src.functions_instructors.instructors import progreso_todos_los_clientes
+from src.functions_instructors.instructors import progreso_cliente
 
-
+from src.functions_clients.clientes import listar_clientes
 from src.functions_clients.clientes import registrar_cliente
+from src.functions_clients.clientes import buscar_cliente
+from src.functions_clients.clientes import search_cliente
+from src.functions_clients.clientes import modificar_cliente
 
 def main():
     start = True
@@ -39,7 +45,27 @@ def main():
                         case "1": # 1.1 Nuevo Registro
                             registrar_cliente()
                         case "2": # 1.2 Entrar al perfil
-                            enroll_client()
+                            start2 = True
+                            id = search_cliente()
+                            while start2:
+                                submenu_profile()
+                                opcion2 = input("\nSeleccione una opcion: ")
+
+                                match opcion2:
+                                    case "1":
+                                        buscar_cliente(id)
+                                    case "2":
+                                        enroll_client(id)
+                                    case "3":
+                                        progreso_cliente(id)
+                                    case "4":
+                                        modificar_cliente(id)
+                                    case "5":
+                                        start2 = False
+                                        print("Volviendo al menu principal...\n")
+                                    case _:
+                                        print("Opcion no valida, Intente nuevamente.")
+                                        
                         case "3": # 1.3 Volver al menu principal
                             start2 = False
                             print("Volviendo al menu principal...")
@@ -62,7 +88,7 @@ def main():
                             accept_client()
 
                         case "2": # 3.2 Listar clientes
-                            show_clients()
+                            listar_clientes()
 
                         case "3": # 3.3 Gestionar servicios
                             start3 = True
@@ -118,10 +144,6 @@ def main():
                             print("Opcion no valida. Intente nuevamente.")
 
             case "4": # 4. Menu reportes
-                submenu_reports()
-                print("En Construccion")
-
-            case "4": # 4. Menu reportes
                 start2 = True
                 while start2:
                     submenu_reports()
@@ -129,7 +151,7 @@ def main():
 
                     match opcion2:
                         case "1": # 4.1 Clientes inscritos
-                            show_clients()
+                            listar_clientes()
 
                         case "2": # 4.2 Servicios y capacidad
                             show_services()
@@ -138,10 +160,10 @@ def main():
                             listar_instructores_activos()
 
                         case "4": # 4.4 Clientes con riesgo alto
-                            print("En Construccion")
+                            listar_riesgo_alto()
 
                         case "5": # 4.5 progreso clientes
-                            print("En Construccion")
+                            progreso_todos_los_clientes()
 
                         case "6": # 4.6 Volver al menu principal
                             start2 = False

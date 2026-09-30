@@ -25,10 +25,10 @@ def accept_client():
             
 
 # FT04.01.02 Funcion enroll_client
-def enroll_client():
+def enroll_client(id):
     clients = get_clients()
     servicios = get_services()
-    id = input("Ingrese el ID del cliente que desea matricular: ")
+    #id = input("Ingrese el ID del cliente que desea matricular: ")
     for cliente in clients:
         if cliente['id'] == id:
             servicio_matricula = input("Ingrese el servicio: ")

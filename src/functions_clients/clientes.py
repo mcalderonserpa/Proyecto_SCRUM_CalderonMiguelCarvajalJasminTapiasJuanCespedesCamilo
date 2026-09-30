@@ -133,14 +133,14 @@ def listar_clientes():
         print(f"Estado: {cliente['estado']}")
         print(f"Nivel de riesgo: {cliente['nivel_riesgo']}")
 
-def buscar_cliente():
-    clientes = cargar_clientes()
+def buscar_cliente(id):
+    clientes = get_clients()
 
-    identificacion = input("\nIngrese la identificación del cliente: ").strip()
+    identificacion = id
 
     for cliente in clientes:
         if cliente["id"] == identificacion:
-            print("\n========== CLIENTE ENCONTRADO ==========")
+            print("\n========== DATOS PERSONALES ==========")
             print(f"ID: {cliente['id']}")
             print(f"Nombres: {cliente['nombres']}")
             print(f"Apellidos: {cliente['apellidos']}")
@@ -153,11 +153,11 @@ def buscar_cliente():
 
     print("Cliente no encontrado.")
 
-def modificar_cliente():
-    clientes = cargar_clientes()
+def modificar_cliente(id):
+    clientes = get_clients()
 
-    identificacion = input("\nIngrese la identificación del cliente: ").strip()
-
+    #identificacion = input("\nIngrese la identificación del cliente: ").strip()
+    identificacion = id
     for cliente in clientes:
         if cliente["id"] == identificacion:
             print("\nCliente encontrado.")
@@ -308,7 +308,17 @@ def menu_clientes():
             print("Opción no válida.")
         
 
-
+def search_cliente():
+    clientes = get_clients()
+    id = input("Ingrese su id: ")
+    found = False
+    for cliente in clientes:
+        if cliente['id'] == id:
+            print(f"Bienvenido, {cliente['nombres']} {cliente['apellidos']}")
+            found = True
+            return id
+    if found == False:
+        print("No se ha encontrado al cliente")
 
     
 
