@@ -47,8 +47,10 @@ def main():
                         case "2": # 1.2 Entrar al perfil
                             start2 = True
                             id = search_cliente()
-                            while start2:
-                                submenu_profile()
+                            if id is None:
+                                continue
+                                while start2:
+                                    submenu_profile()
                                 opcion2 = input("\nSeleccione una opcion: ")
 
                                 match opcion2:
@@ -73,7 +75,6 @@ def main():
                             print("Opcion no valida. Intente nuevamente.")
 
             case "2": # 2. modulo instructores
-                menu_instructors()
                 instructor_menu()
                     
 
