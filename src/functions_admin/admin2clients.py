@@ -1,32 +1,27 @@
+import getopt
 from src.functions_storage.storage import get_clients
 from src.functions_storage.storage import save_clients
 from src.functions_storage.storage import get_services
 from src.functions_storage.storage import save_services
 
 # FT04.01.01 Funcion add_client
-def add_client():
+def accept_client():
     clients = get_clients()
-    id_cliente = int(input("Ingrese el ID del cliente: "))
-    nombres_cliente = input("Ingrese los nombres del cliente: ")
-    apellidos_cliente = input("Ingrese los apellidos del cliente: ")
-    direccion_cliente = input("Ingrese la dirección del cliente: ")
-    telefono_movil_cliente = input("Ingrese el teléfono móvil del cliente: ")
-    telefono_fijo_cliente = input("Ingrese el teléfono fijo del cliente: ")
-    estado_cliente = input("Ingrese el estado del cliente: ")
-    nivel_riesgo_cliente = input("Ingrese el nivel de riesgo del cliente: ")
-    registro = {
-        "id": id_cliente,
-        "nombres": nombres_cliente,
-        "apellidos": apellidos_cliente,
-        "direccion": direccion_cliente,
-        "telefono_movil": telefono_movil_cliente,
-        "telefono_fijo": telefono_fijo_cliente,
-	    "estado": estado_cliente,
-	    "nivel_riesgo": nivel_riesgo_cliente,
-        "servicios" : []
-    }
-    clients.append(registro)
-    save_clients(clients)
+    for cliente in clients:
+        if cliente['estado'] == "En proceso de inscripción":
+            print("Cliente en proceso de inscripción: ", cliente['nombres'], cliente['apellidos'])
+            opcion = input("¿Desea aceptar el cliente? (s/n): ")
+            if opcion.lower() == "s":
+                cliente['estado'] = "Inscrito"
+                save_clients(clients)
+                print("Cliente aceptado exitosamente.")
+            elif opcion.lower() == "n":
+                print("Cliente no aceptado.")
+            else:
+                print("Opcion no valida.")
+                break
+            
+            
 
 # FT04.01.02 Funcion enroll_client
 def enroll_client():
