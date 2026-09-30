@@ -114,7 +114,7 @@ def validar_telefono(telefono):
     return True
 
 def listar_clientes():
-    clientes = cargar_clientes()
+    clientes = get_clients()
 
     if not clientes:
         print("\nNo hay clientes registrados.")
@@ -180,7 +180,7 @@ def modificar_cliente(id):
             if telefono_fijo:
                 cliente["telefono_fijo"] = telefono_fijo
 
-            guardar_clientes(clientes)
+            save_clients(clientes)
             print("\nCliente modificado correctamente.")
             return
 
