@@ -8,6 +8,10 @@ from src.functions_storage.storage import save_services
 # FT04.01.01 Funcion add_client
 def accept_client():
     clients = get_clients()
+    pendientes = [c for c in clients if c['estado'] == "En proceso de inscripción"]
+    if not pendientes:
+        print("No hay solicitudes de inscripcion pendientes.")
+        return
     for cliente in clients:
         if cliente['estado'] == "En proceso de inscripción":
             print("Cliente en proceso de inscripción: ", cliente['nombres'], cliente['apellidos'])
