@@ -200,3 +200,62 @@ def calcular_score(id_cliente, nombre_servicio=None):
         "score": score,
         "nivel": clasificar_rendimiento(score)
     }
+
+# FT03.01.01 Registro de evaluaciones
+
+# Funcion auxiliar pedir_calificacion
+def pedir_calificacion():
+    while True:
+        try:
+            nota = float(input(f"Ingrese la calificacion ({CALIFICACION_MIN} a {CALIFICACION_MAX}): ").replace(",", "."))
+        except ValueError:
+            print("Debe ingresar un numero.")
+            continue
+        if CALIFICACION_MIN <= nota <= CALIFICACION_MAX:
+            return round(nota, 1)
+        print(f"La calificacion debe estar entre {CALIFICACION_MIN} y {CALIFICACION_MAX}.")
+
+# Funcion auxiliar seleccionar_cliente_de_servicio
+def seleccionar_cliente_de_servicio(servicio):
+    matriculas = servicio['matriculas']
+    if not matriculas:
+        print(f"No hay clientes matriculados en {servicio['servicio']}.")
+        return None
+    print(f"\nClientes de {servicio['servicio']}:")
+    for i, matricula in enumerate(matriculas, start=1):
+        print(f"{i}. [{matricula['id']}] {nombre_cliente(matricula['id'])}")
+    try:
+        opcion = int(input("Seleccione el numero del cliente: ")) - 1
+        if opcion < 0:
+            raise IndexError
+        return matriculas[opcion]['id']
+    except (ValueError, IndexError):
+        print("Opcion no valida.")
+        return None
+
+def registrar_evaluacion(instructor):
+    servicio = seleccionar_servicio(instructor)
+    if servicio is None:
+        return
+    id_cliente = seleccionar_cliente_de_servicio(servicio)
+    if id_cliente is None:
+        return
+
+    fecha = pedir_fecha()
+    calificacion = pedir_calificacion()
+    observaciones = input("Observaciones (opcional): ").strip()
+
+    evaluaciones = get_evaluations()
+    evaluaciones.append({
+        "id_cliente": id_cliente,
+        "servicio": servicio['servicio'],
+        "id_instructor": instructor['id'],
+        "fecha": fecha,
+        "calificacion": calificacion,
+        "observaciones": observaciones
+    })
+    save_evaluations(evaluaciones)
+
+    resultado = calcular_score(id_cliente, servicio['servicio'])
+    print(f"\nEvaluacion guardada. Score actual en {servicio['servicio']}: "
+          f"{resultado['score']} ({resultado['nivel']})")
