@@ -13,6 +13,7 @@ from src.functions_admin.admin2clients import show_clients
 from src.functions_admin.admin2clients import enroll_client
 from src.functions_admin.admin2services import add_service
 from src.functions_admin.admin2instructors import add_instructor
+from src.functions_instructors.instructors import instructor_menu
 
 from src.functions_clients.clientes import registrar_cliente
 
@@ -28,8 +29,7 @@ def main():
                 print("En Construccion")
 
             case "2": # 2. modulo instructores
-                menu_instructors()
-                print("En Construccion")
+                instructor_menu()
 
             case "3": # 3. modulo ADMIN
                 start2 = True

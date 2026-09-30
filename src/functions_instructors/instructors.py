@@ -259,3 +259,25 @@ def registrar_evaluacion(instructor):
     resultado = calcular_score(id_cliente, servicio['servicio'])
     print(f"\nEvaluacion guardada. Score actual en {servicio['servicio']}: "
           f"{resultado['score']} ({resultado['nivel']})")
+
+# FT03.02 Menu de instructores
+
+# FT03.02.01  Instructor_menu
+def instructor_menu():
+    instructor = login_instructor()
+    if instructor is None:
+        return
+
+    while True:
+        menu_instructors()
+        opcion = input("\nSeleccione una opcion: ")
+        match opcion:
+            case "1":
+                registrar_asistencia(instructor)
+            case "2":
+                registrar_evaluacion(instructor)
+            case "3":
+                print("Volviendo al menu principal...")
+                break
+            case _:
+                print("Opcion no valida. Intente nuevamente.")
