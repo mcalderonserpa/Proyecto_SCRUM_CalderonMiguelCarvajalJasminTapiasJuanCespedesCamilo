@@ -30,9 +30,9 @@ def submenu_profile():
 
 # FT
 def menu_instructors():
-    print("\n--- MODULO DE INSTRUCTORES ---")
-    print("1. Evaluacion periodica")
-    print("2. Listar instructores")
+    print("\n--- MENU DE INSTRUCTORES ---")
+    print("1. Registrar asistencia")
+    print("2. Registrar evaluacion de rendimiento")
     print("3. Volver al menu principal")
 
 # FT

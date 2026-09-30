@@ -41,3 +41,31 @@ def get_instructors():
 def save_instructors(instructors):
     with open('instructors.json', 'w') as file:
         json.dump(instructors, file, indent=4)
+
+# FT08.04.01 Funcion get_attendance
+def get_attendance():
+    try:
+        with open('asistencias.json', 'r') as file:
+            asistencias = json.load(file)
+        return asistencias
+    except FileNotFoundError:
+        return []
+
+# FT08.04.02 Funcion save_attendance
+def save_attendance(asistencias):
+    with open('asistencias.json', 'w') as file:
+        json.dump(asistencias, file, indent=4)
+
+# FT08.04.03 Funcion get_evaluations
+def get_evaluations():
+    try:
+        with open('evaluaciones.json', 'r') as file:
+            evaluaciones = json.load(file)
+        return evaluaciones
+    except FileNotFoundError:
+        return []
+
+# FT08.04.04 Funcion save_evaluations
+def save_evaluations(evaluaciones):
+    with open('evaluaciones.json', 'w') as file:
+        json.dump(evaluaciones, file, indent=4)
