@@ -281,3 +281,74 @@ def instructor_menu():
                 break
             case _:
                 print("Opcion no valida. Intente nuevamente.")
+
+# FT03.04 Funciones de apoyo al modulo de reportes
+
+# Funcion auxiliar mostrar_progreso_servicio
+def mostrar_progreso_servicio(id_cliente, nombre_servicio):
+    resultado = calcular_score(id_cliente, nombre_servicio)
+    asistencia = resumen_asistencia(id_cliente, nombre_servicio)
+    evaluaciones = evaluaciones_cliente(id_cliente, nombre_servicio)
+
+    print(f"\n--- {nombre_servicio.upper()} ---")
+    if asistencia['sesiones'] == 0:
+        print("Asistencia: sin sesiones registradas")
+    else:
+        print(f"Asistencia: {asistencia['asistencias']}/{asistencia['sesiones']} "
+              f"({asistencia['porcentaje']}%) | Inasistencias: {asistencia['inasistencias']}")
+
+    if not evaluaciones:
+        print("Evaluaciones: ninguna")
+    else:
+        print("Evaluaciones:")
+        for evaluacion in evaluaciones:
+            obs = f" - {evaluacion['observaciones']}" if evaluacion['observaciones'] else ""
+            print(f"  {evaluacion['fecha']}: {evaluacion['calificacion']}{obs}")
+        if len(evaluaciones) >= 2:
+            cambio = round(evaluaciones[-1]['calificacion'] - evaluaciones[0]['calificacion'], 1)
+            if cambio > 0:
+                tendencia = f"mejorando (+{cambio})"
+            elif cambio < 0:
+                tendencia = f"bajando ({cambio})"
+            else:
+                tendencia = "estable"
+            print(f"Tendencia: {tendencia}")
+
+    print(f"Promedio: {resultado['promedio']} | Score: {resultado['score']} | Rendimiento: {resultado['nivel']}")
+
+# FT03.04.01 Funcion clientes_bajo_rendimiento
+def clientes_bajo_rendimiento():
+    resultado = []
+    for cliente in get_clients():
+        score = calcular_score(cliente['id'])
+        riesgo = str(cliente.get('nivel_riesgo', '')).strip().lower()
+        if score['nivel'] == "bajo" or riesgo == "alto":
+            resultado.append({
+                "id": cliente['id'],
+                "nombre": f"{cliente['nombres']} {cliente['apellidos']}",
+                "nivel_riesgo": cliente.get('nivel_riesgo', ''),
+                "score": score['score'],
+                "rendimiento": score['nivel']
+            })
+    return resultado
+
+# FT03.04.02 Funcion progreso_todos_los_clientes
+# Muestra el progreso de cada cliente en cada servicio en el que esta matriculado.
+def progreso_todos_los_clientes():
+    servicios = get_services()
+    hay_datos = False
+    for cliente in get_clients():
+        servicios_cliente = []
+        for servicio in servicios:
+            for matricula in servicio['matriculas']:
+                if matricula['id'] == cliente['id']:
+                    servicios_cliente.append(servicio['servicio'])
+        if not servicios_cliente:
+            continue
+        hay_datos = True
+        print(f"\n===== [{cliente['id']}] {cliente['nombres']} {cliente['apellidos']} =====")
+        for nombre_servicio in servicios_cliente:
+            mostrar_progreso_servicio(cliente['id'], nombre_servicio)
+    if not hay_datos:
+        print("No hay clientes matriculados en servicios.")
+        

@@ -2,8 +2,6 @@ from src.functions_menu.menus import menu_main
 from src.functions_menu.menus import menu_clients
 from src.functions_menu.menus import menu_instructors
 from src.functions_menu.menus import menu_admin
-from src.functions_menu.menus import submenu_enrollments
-from src.functions_menu.menus import submenu_services_clients
 from src.functions_menu.menus import submenu_services_admin
 from src.functions_menu.menus import submenu_reports
 from src.functions_menu.menus import submenu_instructors_admin
