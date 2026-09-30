@@ -1,13 +1,20 @@
 import json
 
-# FT08.01.01 Funcion get_clients
-def get_clients():
+
+# Lee un JSON; si no existe, esta vacio o danado devuelve [] sin cerrar el programa
+def leer_json(ruta):
     try:
-        with open('clients.json', 'r') as file:
-            clients = json.load(file)
-        return clients
+        with open(ruta, 'r') as file:
+            return json.load(file)
     except FileNotFoundError:
         return []
+    except json.JSONDecodeError:
+        print(f"Aviso: el archivo {ruta} esta vacio o danado. Se usara una lista vacia.")
+        return []
+
+# FT08.01.01 Funcion get_clients
+def get_clients():
+    return leer_json('clients.json')
 
 # FT08.01.02 Funcion save_clients
 def save_clients(clients):
@@ -16,12 +23,7 @@ def save_clients(clients):
 
 # FT08.02.01 Funcion get_services
 def get_services():
-    try:
-        with open('services.json', 'r') as file:
-            services = json.load(file)
-        return services
-    except FileNotFoundError:
-        return []
+    return leer_json('services.json')
 
 # FT08.02.02 Funcion save_services
 def save_services(services):
@@ -30,19 +32,7 @@ def save_services(services):
 
 # FT08.03.01 Funcion get_instructors
 def get_instructors():
-    try:
-        with open('instructors.json', 'r') as file:
-            instructors = json.load(file)
-        return instructors
-    except FileNotFoundError:
-        instructors = [
-            {
-                "nombre": "Miguel",
-                "servicio": None
-            }
-        ]
-
-        return []
+    return leer_json('instructors.json')
 
 # FT08.03.02 Funcion save_instructors
 def save_instructors(instructors):
@@ -51,12 +41,7 @@ def save_instructors(instructors):
 
 # FT08.04.01 Funcion get_attendance
 def get_attendance():
-    try:
-        with open('asistencias.json', 'r') as file:
-            asistencias = json.load(file)
-        return asistencias
-    except FileNotFoundError:
-        return []
+    return leer_json('asistencias.json')
 
 # FT08.04.02 Funcion save_attendance
 def save_attendance(asistencias):
@@ -65,12 +50,7 @@ def save_attendance(asistencias):
 
 # FT08.04.03 Funcion get_evaluations
 def get_evaluations():
-    try:
-        with open('evaluaciones.json', 'r') as file:
-            evaluaciones = json.load(file)
-        return evaluaciones
-    except FileNotFoundError:
-        return []
+    return leer_json('evaluaciones.json')
 
 # FT08.04.04 Funcion save_evaluations
 def save_evaluations(evaluaciones):

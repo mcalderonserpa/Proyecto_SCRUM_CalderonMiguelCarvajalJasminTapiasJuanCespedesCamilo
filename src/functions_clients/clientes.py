@@ -42,9 +42,15 @@ def registrar_cliente():
 
     nombres = input("Ingrese los nombres: ").strip()
     apellidos = input("Ingrese los apellidos: ").strip()
+    if not nombres or not apellidos:
+        print("Los nombres y apellidos son obligatorios.")
+        return
     direccion = input("Ingrese la dirección: ").strip()
     telefono_movil = input("Ingrese el teléfono móvil: ").strip()
+    if not validar_telefono(telefono_movil):
+        return
     telefono_fijo = input("Ingrese el teléfono fijo: ").strip()
+    
 
     estado = "En proceso de inscripción"
 
@@ -114,7 +120,7 @@ def validar_telefono(telefono):
     return True
 
 def listar_clientes():
-    clientes = cargar_clientes()
+    clientes = get_clients()
 
     if not clientes:
         print("\nNo hay clientes registrados.")
@@ -180,7 +186,7 @@ def modificar_cliente(id):
             if telefono_fijo:
                 cliente["telefono_fijo"] = telefono_fijo
 
-            guardar_clientes(clientes)
+            save_clients(clientes)
             print("\nCliente modificado correctamente.")
             return
 

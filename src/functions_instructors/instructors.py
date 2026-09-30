@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+from src.functions_menu.menus import menu_instructors
 from src.functions_storage.storage import get_instructors
 from src.functions_storage.storage import save_instructors
 from src.functions_storage.storage import get_services
@@ -8,7 +9,7 @@ from src.functions_storage.storage import get_attendance
 from src.functions_storage.storage import save_attendance
 from src.functions_storage.storage import get_evaluations
 from src.functions_storage.storage import save_evaluations
-from src.functions_menu.menus import menu_instructors
+from src.functions_utils.validaciones import pedir_entero
 
 PENALIZACION_INASISTENCIA = 0.1
 CALIFICACION_MIN = 0.1
@@ -60,7 +61,7 @@ def servicios_de_instructor(instructor):
     for servicio in get_services():
         if servicio['instructor'] == instructor['nombre'] or servicio['servicio'] in instructor.get('servicios', []):
             servicios.append(servicio)
-            return servicios
+    return servicios
 
 def seleccionar_servicio(instructor):
     servicios = servicios_de_instructor(instructor)
@@ -365,14 +366,16 @@ def listar_instructores_activos():
 
 def eliminar_instructor():
     instructores = get_instructors()
-    n = 1
-    for instructor in instructores:
-        if instructor['estado'] == "activo":
-            print(f"{n}. {instructor['nombre']}")
-            n += 1
-    opcion = int(input("Seleccione el numero del instructor que desea eliminar: ")) - 1
-    instructores[opcion]['estado'] = "inactivo"
+    activos = [i for i in instructores if i.get('estado', 'activo') == "activo"]
+    if not activos:
+        print("No hay instructores activos.")
+        return
+    for n, instructor in enumerate(activos, start=1):
+        print(f"{n}. {instructor['nombre']}")
+    opcion = pedir_entero("Seleccione el numero del instructor que desea eliminar: ", 1, len(activos))
+    activos[opcion - 1]['estado'] = "inactivo"
     save_instructors(instructores)
+    print(f"Instructor {activos[opcion - 1]['nombre']} desactivado.")
 
 def listar_riesgo_alto():
     print("\nClientes con riesgo alto:\n")
@@ -393,4 +396,14 @@ def progreso_cliente(id_cliente):
     print(f"\n===== PROGRESO DE {nombre_cliente(id_cliente).upper()} =====")
     for nombre_servicio in servicios:
         mostrar_progreso_servicio(id_cliente, nombre_servicio)
+
+# Reporte 4.4: clientes con riesgo alto o bajo rendimiento
+def listar_riesgo_o_bajo_rendimiento():
+    print("\nClientes con riesgo alto o bajo rendimiento:\n")
+    lista = clientes_bajo_rendimiento()
+    if not lista:
+        print("No hay clientes en esta condicion.")
+        return
+    for n, c in enumerate(lista, start=1):
+        print(f"{n}. {c['nombre']} | riesgo: {c['nivel_riesgo']} | score: {c['score']} ({c['rendimiento']})")
         

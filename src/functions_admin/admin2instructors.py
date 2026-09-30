@@ -22,6 +22,11 @@ def add_instructor():
     if not nombre:
         print("El nombre no puede estar vacio.")
         return
+    for registro in instructors:
+        if registro['nombre'] == nombre:
+            print(f"Ya existe un instructor llamado {nombre}.")
+            return
+        
     
     telefono = input("Ingrese el telefono del instructor: ").strip()
     especialidad = input("Ingrese la especialidad del instructor: ").strip().lower()
