@@ -49,8 +49,8 @@ def main():
                             id = search_cliente()
                             if id is None:
                                 continue
-                                while start2:
-                                    submenu_profile()
+                            while start2:
+                                submenu_profile()
                                 opcion2 = input("\nSeleccione una opcion: ")
 
                                 match opcion2:

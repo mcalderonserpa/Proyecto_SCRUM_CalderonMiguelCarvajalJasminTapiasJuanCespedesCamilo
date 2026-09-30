@@ -49,6 +49,7 @@ def registrar_cliente():
     telefono_movil = input("Ingrese el teléfono móvil: ").strip()
     if not validar_telefono(telefono_movil):
         return
+    telefono_fijo = input("Ingrese el teléfono fijo: ").strip()
     
 
     estado = "En proceso de inscripción"

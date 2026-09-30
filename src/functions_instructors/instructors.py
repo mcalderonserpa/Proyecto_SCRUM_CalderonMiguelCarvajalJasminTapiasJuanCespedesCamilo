@@ -9,7 +9,6 @@ from src.functions_storage.storage import get_attendance
 from src.functions_storage.storage import save_attendance
 from src.functions_storage.storage import get_evaluations
 from src.functions_storage.storage import save_evaluations
-from src.functions_menu.menus import menu_instructors
 from src.functions_utils.validaciones import pedir_entero
 
 PENALIZACION_INASISTENCIA = 0.1
@@ -62,7 +61,7 @@ def servicios_de_instructor(instructor):
     for servicio in get_services():
         if servicio['instructor'] == instructor['nombre'] or servicio['servicio'] in instructor.get('servicios', []):
             servicios.append(servicio)
-        return servicios
+    return servicios
 
 def seleccionar_servicio(instructor):
     servicios = servicios_de_instructor(instructor)
