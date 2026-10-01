@@ -23,6 +23,39 @@ Desarrollar un sistema que permita gestionar de manera organizada la informació
 | Juan Daniel Tapias            | Construir, probar e integrar funcionalidades         | Development Team           |
 | Camilo Andrés Gonzales        | Definir y priorizar las funcionalidades del proyecto | Product Owner              |
 
+### Organigrama del equipo
+ 
+```mermaid
+%%{init: {"theme": "neutral"}}%%
+flowchart TD
+    EQ["EQUIPO SCRUM<br/>ForceTech Gym"]
+ 
+    PO["PRODUCT OWNER<br/>Camilo Andrés Gonzales<br/>---<br/>Define y prioriza<br/>el Product Backlog"]
+    SM["SCRUM MASTER<br/>Miguel Ricardo Calderón Serpa<br/>---<br/>Facilita las ceremonias SCRUM<br/>y remueve impedimentos"]
+    DT["DEVELOPMENT TEAM"]
+ 
+    D1["Miguel Ricardo Calderón Serpa<br/>---<br/>Estructura del proyecto<br/>Almacenamiento JSON<br/>Módulo de administrador<br/>Integración de ramas"]
+    D2["Jasmin Sofía Carvajal Prada<br/>---<br/>Módulo de clientes"]
+    D3["Juan Daniel Tapias<br/>---<br/>Módulo de instructores<br/>Funciones de reportes<br/>Corrector del proyecto"]
+ 
+    EQ --> PO
+    EQ --> SM
+    EQ --> DT
+    DT --> D1
+    DT --> D2
+    DT --> D3
+    SM -. "también integra el Development Team" .-> D1
+ 
+    classDef principal fill:#1F2937,stroke:#1F2937,color:#FFFFFF
+    classDef rol fill:#FFFFFF,stroke:#1F2937,stroke-width:2px,color:#1F2937
+    classDef persona fill:#FFFFFF,stroke:#1F2937,stroke-width:1px,color:#1F2937
+    class EQ principal
+    class PO,SM,DT rol
+    class D1,D2,D3 persona
+    linkStyle default stroke:#1F2937,stroke-width:1.5px
+```
+ 
+---
 
 ## ⚙️ Módulos del Sistema
 
