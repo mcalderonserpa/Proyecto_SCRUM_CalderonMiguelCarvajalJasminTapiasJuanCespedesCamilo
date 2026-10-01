@@ -198,6 +198,7 @@ La información se guarda en archivos **JSON** que el programa crea automáticam
 * **Git** y **GitHub**
 * **Visual Studio Code**
 * **Notion** (gestión SCRUM)
+  link: https://warm-collard-494.notion.site/ForceTech-Gym-836f09ad8909497eb9a3821ae1ebb58c
 ---
 
 ## 📁 Estructura del Proyecto
@@ -209,6 +210,9 @@ ForceTech Gym/
 ├── README.md
 ├── .gitignore
 │
+├── docs/
+|   └── ForceTech_Gym_Documentacion.pdf # Documentación del proyecto
+|
 └── src/
     ├── functions_admin/
     │   ├── admin2clients.py         # Admitir inscripciones y matrículas
